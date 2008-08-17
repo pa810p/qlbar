@@ -1,0 +1,126 @@
+.TH QLBAR 8 2008-05-04 "QLBar Cool ToolBar"
+.SH NAME 
+qlbar-0.1.4 \- Cool Toolbar for X11
+.SH SYNOPSIS
+.B qlbar
+[-hHVv] [-c config file] [-m menu file] [--bar-color color] 
+[--balloon-color color] [--font-color color] [-f name]
+[-s size] [-d directory] [-B true/false]
+[--bar-height height] [--bar-width width] [-t seconds] 
+[--icon-width widh] [--icon-height height] [--voffset pixels]
+[--hoffset pixels] [-l layout] [--daemonize]
+.br
+.SH DESCRIPTION
+.B qlbar 
+is a Toolbar for X11. It allows quick launch applications that user
+specifies in menu file. QLBar (default) appears as 1 pixel height line
+at the top of the screen, but most appearance parameters may be configured. See OPTIONS.
+.SH OPTIONS
+.TP
+.B \-\-balloon\-color
+background color of tooltip balloon
+.TP
+.B \-\-bar\-color
+specifies qlbar color
+.TP
+.B \-\-bar\-height
+height of a bar in pixels, default 1 
+.TP
+.B \-\-bar\-width
+width of a bar in pixels, default is computed as: icon width multiply icon count
+.TP
+.B \-t \fRor\fP \-\-bar\-time
+delay in seconds after that toolbar will hide
+.TP 
+.B \-c \fRor\fP \-\-config
+config file
+.br
+Default $HOME/.qlbar/config is used
+.TP
+.B \-\-font\-color
+tooltip balloon font color
+.TP
+.B \-f \fRor\fP \-\-font\-dir
+path to directory that contains TTF fonts
+.TP
+.B \-f \fRor\fP \-\-font\-name
+font used on balloon tip
+.TP
+.B \-f \fRor\fP \-\-font\-size
+tooltip balloon font size
+.TP
+.B \-D \fRor\fP \-\-daemonize
+make qlbar run in the background
+.TP
+.B \-h \fRor\fP \-\-help
+help screen
+.TP
+.B \-H \fRor\fP \-\-horizontal
+this option indicates that toolbar will be placed horizontaly. Same as 
+.B \-l horizontal
+.TP 
+.B \-\-hoffset
+horizontal offset from the corner of screen in pixels. Corner is specified by
+.B \-p \fRor\fP --position
+option and is only affected when 
+.B \-H \fRor\fP \-l horizontal
+has been choosen
+.TP 
+.B \-\-icon\-width
+width of the icons in pixels
+.TP
+.B \-\-icon\-height
+height of the icons in pixels
+.TP
+.B \-l \fRor\fP \-\-layout
+layout may be
+.B horizontal \fR(default) or\fP vertical
+.TP 
+.B \-m \fRor\fP \-\-menu
+file containing items information: name, execute path, icon file path.
+Menu file format is compatible with fluxbox menu file and contains lines
+as follow:
+.br
+[exec] (application name) {execute path} <icon path>
+.br
+Default $HOME/.qlbar/menu is used
+.TP
+.B \-p \fRor\fP \-\-position
+position of the toolbar: n, ne, e, se, s, sw, w, nw
+.TP
+.B \-B \fRor\fP \-\-show\-balloon
+true or false show or not baloon, default balloon is shown
+.TP
+.B \-V \fRor\fP \-\-vertical
+indicates that toolbar will be placed verticaly
+.TP
+.B \-v \fRor\fP \-\-verbose
+produces lots of output
+.TP
+.B \-\-voffset
+vertical offset from the corner of screen in pixels. Corner is specified by
+.B \-p \fRor\fP --position
+option and is only affected when
+.B \-V \fRor\fP \-l vertical
+has been choosen
+.SH TODO
+.br
+- transparent rectangle with alpha that appears when user 
+moves mouse over toolbar item
+.br
+- sliding bar instead of sudden appear, hide
+.br
+- fixed qlbar icon, with clock, reminder, or other...
+.br
+- right click context menu over every item with extra features (configure)
+.SH BUGS REPORTING
+pablo@wizard.ae.krakow.pl
+.br
+.SH COPYRIGHT
+GPL.
+.SH AUTHOR
+The author of 
+.B qlbar
+is Pawel Prokop (pablo@wizard.ae.krakow.pl)
+.br
+homepage of this project is : http://prokop.ae.krakow.pl/projects/qlbar.html

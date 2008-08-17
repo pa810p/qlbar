@@ -1,0 +1,31 @@
+This is QLBar 0.1.4 written by Pawel Prokop (pablo@wizard.ae.krakow.pl)
+--------------------------------------------------------------------------
+
+
+Introduction
+------------
+
+QLBar is a Toolbar gadget for X11 that contains icons and allows to launch 
+associated applications quickly. Usually it appears as a one pixel high line 
+placed at edge of the screen, because not to cover other windows. On mouse 
+move on this line QLBar appears as a bar with icon images. Common configured 
+application is launched after mouse press over associated icon.
+
+Installation
+------------
+
+See the INSTALL file for detailed installation instructions. 
+
+
+Requirements
+------------
+
+- imlib2-1.4.0
+
+Author
+------
+
+Pawel Prokop (pablo@wizard.ae.krakow.pl)
+
+Project homepage: http://prokop.ae.krakow.pl/projects/qlbar.html
+

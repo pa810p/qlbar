@@ -1,0 +1,214 @@
+Content-type: text/html
+
+<HTML><HEAD><TITLE>Manpage of QLBAR</TITLE>
+</HEAD><BODY>
+<H1>QLBAR</H1>
+Section: Maintenance Commands (8)<BR>Updated: 2008-05-04<BR><A HREF="#index">Index</A>
+<A HREF="http://localhost/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME </H2>
+
+qlbar-0.1.4 - Cool Toolbar for X11
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>qlbar</B>
+
+[-hHVv] [-c config file] [-m menu file] [--bar-color color] 
+[--balloon-color color] [--font-color color] [-f name]
+[-s size] [-d directory] [-B true/false]
+[--bar-height height] [--bar-width width] [-t seconds] 
+[--icon-width widh] [--icon-height height] [--voffset pixels]
+[--hoffset pixels] [-l layout] [--daemonize]
+<BR>
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+<B>qlbar </B>
+
+is a Toolbar for X11. It allows quick launch applications that user
+specifies in menu file. QLBar (default) appears as 1 pixel height line
+at the top of the screen, but most appearance parameters may be configured. See OPTIONS.
+<A NAME="lbAE">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<DL COMPACT>
+<DT><B>--balloon-color</B>
+
+<DD>
+background color of tooltip balloon
+<DT><B>--bar-color</B>
+
+<DD>
+specifies qlbar color
+<DT><B>--bar-height</B>
+
+<DD>
+height of a bar in pixels, default 1 
+<DT><B>--bar-width</B>
+
+<DD>
+width of a bar in pixels, default is computed as: icon width multiply icon count
+<DT><B>-t </B>or --bar-time
+
+<DD>
+delay in seconds after that toolbar will hide
+<DT><B>-c </B>or --config
+
+<DD>
+config file
+<BR>
+
+Default $HOME/.qlbar/config is used
+<DT><B>--font-color</B>
+
+<DD>
+tooltip balloon font color
+<DT><B>-f </B>or --font-dir
+
+<DD>
+path to directory that contains TTF fonts
+<DT><B>-f </B>or --font-name
+
+<DD>
+font used on balloon tip
+<DT><B>-f </B>or --font-size
+
+<DD>
+tooltip balloon font size
+<DT><B>-D </B>or --daemonize
+
+<DD>
+make qlbar run in the background
+<DT><B>-h </B>or --help
+
+<DD>
+help screen
+<DT><B>-H </B>or --horizontal
+
+<DD>
+this option indicates that toolbar will be placed horizontaly. Same as 
+<B>-l horizontal</B>
+
+<DT><B>--hoffset</B>
+
+<DD>
+horizontal offset from the corner of screen in pixels. Corner is specified by
+<B>-p </B>or --position
+
+option and is only affected when 
+<B>-H </B>or -l horizontal
+
+has been choosen
+<DT><B>--icon-width</B>
+
+<DD>
+width of the icons in pixels
+<DT><B>--icon-height</B>
+
+<DD>
+height of the icons in pixels
+<DT><B>-l </B>or --layout
+
+<DD>
+layout may be
+<B>horizontal </B>(default) or vertical
+
+<DT><B>-m </B>or --menu
+
+<DD>
+file containing items information: name, execute path, icon file path.
+Menu file format is compatible with fluxbox menu file and contains lines
+as follow:
+<BR>
+
+[exec] (application name) {execute path} &lt;icon path&gt;
+<BR>
+
+Default $HOME/.qlbar/menu is used
+<DT><B>-p </B>or --position
+
+<DD>
+position of the toolbar: n, ne, e, se, s, sw, w, nw
+<DT><B>-B </B>or --show-balloon
+
+<DD>
+true or false show or not baloon, default balloon is shown
+<DT><B>-V </B>or --vertical
+
+<DD>
+indicates that toolbar will be placed verticaly
+<DT><B>-v </B>or --verbose
+
+<DD>
+produces lots of output
+<DT><B>--voffset</B>
+
+<DD>
+vertical offset from the corner of screen in pixels. Corner is specified by
+<B>-p </B>or --position
+
+option and is only affected when
+<B>-V </B>or -l vertical
+
+has been choosen
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>TODO</H2>
+
+<BR>
+
+- transparent rectangle with alpha that appears when user 
+moves mouse over toolbar item
+<BR>
+
+- sliding bar instead of sudden appear, hide
+<BR>
+
+- fixed qlbar icon, with clock, reminder, or other...
+<BR>
+
+- right click context menu over every item with extra features (configure)
+<A NAME="lbAG">&nbsp;</A>
+<H2>BUGS REPORTING</H2>
+
+<A HREF="mailto:pablo@wizard.ae.krakow.pl">pablo@wizard.ae.krakow.pl</A>
+<BR>
+
+<A NAME="lbAH">&nbsp;</A>
+<H2>COPYRIGHT</H2>
+
+GPL.
+<A NAME="lbAI">&nbsp;</A>
+<H2>AUTHOR</H2>
+
+The author of 
+<B>qlbar</B>
+
+is Pawel Prokop (<A HREF="mailto:pablo@wizard.ae.krakow.pl">pablo@wizard.ae.krakow.pl</A>)
+<BR>
+
+homepage of this project is : <A HREF="http://prokop.ae.krakow.pl/projects/qlbar.html">http://prokop.ae.krakow.pl/projects/qlbar.html</A>
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME </A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">TODO</A><DD>
+<DT><A HREF="#lbAG">BUGS REPORTING</A><DD>
+<DT><A HREF="#lbAH">COPYRIGHT</A><DD>
+<DT><A HREF="#lbAI">AUTHOR</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="http://localhost/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 18:12:58 GMT, August 13, 2008
+</BODY>
+</HTML>

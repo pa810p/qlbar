@@ -1,0 +1,16 @@
+
+icon-width = 32
+icon-height = 32
+bar-width = default
+bar-height = 1
+bar-color = 80
+position = n
+bar-time = 1
+layout = horizontal
+font-name = verdana
+font-size = 8
+font-dir = /usr/X11/lib/X11/fonts/TTF
+font-color = 0x000055
+balloon-color = 0xbbbb44
+show-balloon = true
+

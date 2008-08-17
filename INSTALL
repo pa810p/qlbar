@@ -1,0 +1,71 @@
+Making and Installing the QLBar application
+===========================================
+
+This file provides brief instructions on how to build and instlal
+QLBar applcation on UNIX (and UNIX-like) system)
+
+It is recommended that you read, or at least skim through, ALL of the
+instructions in this file before attempting to build the software.
+
+
+Making and Installing the QLBar application
+-------------------------------------------
+
+1.   Unpack the distribution and change directory:
+
+           % tar zxf qlbar-VERSION.tar.gz
+     or
+           % tar jxf qlbar-VERSION.tar.bz2
+
+     (replacing VERSION with the appropriate version string).  If you
+     are reading this file, you probably have already done this!
+
+2.   Type:
+
+           % ./configure --help
+
+     to list available configuration options
+
+     Note also that the configure script uses environmental variables
+     for determining compiler/linker options including:
+
+        Variable        Description     Example
+        CC              C compiler      gcc
+        CFLAGS          C flags         -O -g
+        CPPFLAGS        cpp flags       -I/path/include -DFOO=42
+        LDFLAGS         ld flags        -L/usr/local/lib
+        LIBS            libraries       -llib
+        PATH            command path    /usr/local/bin:/usr/bin:/bin
+
+3.   Configure the build system:
+
+           % ./configure [options]
+
+4.   Build the system:
+
+           %  make
+
+5.   Install the software:
+
+          % su root -c 'make install'
+
+6.   Postconfigure system
+
+     copy default configuration from package directory into the user directory
+
+          % mkdir $HOME/.qlbar
+          % cp ./conf/* $HOME/.qlbar
+  
+7.   Edit menu configuration file, to put your own icons on toolbar
+
+          % vim $HOME/.qlbar/menu
+
+8.   Edit design configuration file, to create your own favorit design and placement
+
+          % vim $HOME/.qlbar/config
+
+9.   That's it.  Enjoy!
+
+
+---
+

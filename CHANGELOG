@@ -1,0 +1,57 @@
+-----------------------------
+Wed Aug 13 20:10:39 CEST 2008
+version 0.1.4
+
+- bugfix: ./configure script did not scream laud if some
+  libraries were missing.
+
+-----------------------------
+Sun May  4 16:22:47 CEST 2008
+version 0.1.3
+
+- bugfix: tooltips sometimes did not disappear after
+  mouse pointer leave icon and enter one-pixel width bar.
+- bugfix: larger tips sometimes has been overpainted by
+  their neighbours that caused cyclic Paint method calls, 
+  and then hangs of qlbar.
+
+-----------------------------
+Tue Dec 25 16:31:55 CET 2007
+version 0.1.2
+
+- feature: option to daemonize qlbar -D --daemonize
+- bugfix: tooltip appears now on top
+- bugfix: long text at tooltip has been cut before
+- bugfix: memleak during creating threads fixed
+
+-----------------------------
+Sat Nov 10 22:02:08 CET 2007
+version 0.1.1
+
+- feature: tooltip balloon with application name added
+  (options: balloon-color, font-color, font-name, font-size
+   font-dir, show-balloon)
+
+- bugfix: on --position e qlbar couldn't be drown when it's
+  width was 1
+
+
+-----------------------------
+Mon Oct 22 19:48:13 CEST 2007
+version 0.1.0 
+
+- bugfix: --bar-color did not work
+
+- feature: --bar-color supports hexadecimal numbers 
+  (must be prefixed with 0x)
+
+- cosmetics: minor code cosmetics
+
+
+-----------------------------
+Thu Oct 18 22:09:15 CEST 2007
+version 0.1 beta
+
+- main features implemented
+- simple documentation
+- installation scripts
