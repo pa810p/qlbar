@@ -49,7 +49,7 @@ binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_qlbar_OBJECTS = common.$(OBJEXT) qlconf.$(OBJEXT) qlbar.$(OBJEXT) \
 	qlitem.$(OBJEXT) qltip.$(OBJEXT) qlwidget.$(OBJEXT) \
-	main.$(OBJEXT)
+	main.$(OBJEXT) qllogger.$(OBJEXT)
 qlbar_OBJECTS = $(am_qlbar_OBJECTS)
 qlbar_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -97,6 +97,7 @@ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
+LOG4CXX = @LOG4CXX@
 LTLIBOBJS = @LTLIBOBJS@
 MAKEINFO = @MAKEINFO@
 OBJEXT = @OBJEXT@
@@ -150,8 +151,8 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-qlbar_SOURCES = common.cc qlconf.cc qlbar.cc qlitem.cc qltip.cc qlwidget.cc main.cc
-qlbar_LDFLAGS = -lX11 -lImlib2 -lXext -lpthread
+qlbar_SOURCES = common.cc qlconf.cc qlbar.cc qlitem.cc qltip.cc qlwidget.cc main.cc qllogger.cc
+qlbar_LDFLAGS = -lX11 -lImlib2 -lXext -lpthread ${LOG4CXX}
 all: all-am
 
 .SUFFIXES:
@@ -223,6 +224,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qlbar.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qlconf.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qlitem.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qllogger.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qltip.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qlwidget.Po@am__quote@
 

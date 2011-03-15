@@ -5,6 +5,7 @@
 #include <X11/extensions/shape.h>
 
 #include <string>
+#include "qllogger.h"
 #include "constants.h"
 #include "qlitem.h"
 
@@ -40,6 +41,8 @@ QLItem::QLItem ( char * ip, char * ep, char * fn)
 
 	Init();
 	_pTip = NULL;
+
+    qllogger.logT("QLItem creation: [%x]", this);
 
 }
 
@@ -150,7 +153,7 @@ void QLItem::Paint()
 //    imlib_image_fill_rectangle(0,0,_width,_height);
 
 
-	DBGOUT printf("QLItem paint : %d, %d, %d, %d\n", _x, _y, _width, _height);
+	qllogger.logT("QLItem paint : %d, %d, %d, %d", _x, _y, _width, _height);
 	imlib_context_set_image(im);
 	imlib_context_set_drawable(_window);
 	imlib_image_set_has_alpha(1);
@@ -179,7 +182,7 @@ void QLItem::Paint()
 bool QLItem::CreateUI (Display * display, Window window, 
 	const int & x, const int & y, const int &w, const int &h)
 {
-	DBGOUT  printf("prepare: %d, %d, %d, %d\n", x, y, w, h);
+	qllogger.logT("prepare QLItem [%x] (%s): %d, %d, %d, %d", this, GetName(), x, y, w, h);
 	_x = x;
 	_y = y;
 	_width = w;
@@ -201,7 +204,6 @@ bool QLItem::CreateUI (Display * display, Window window,
 
 	Show();
 
-
 	return true;
 }
 
@@ -222,7 +224,7 @@ bool QLItem::CreateBalloonUI(const int & base_x, const int & base_y, Balloon bal
 	
 	bal.caption = _pName;
 	_pTip = new QLTip(bal);
-	
+	qllogger.logT("Created Balloon UI: [%x] on qlitem [%x]", _pTip, this);
 	
 	//let it be balloon
 	if (!  _pTip->CreateUI(_display, _window, base_x, base_y) )
@@ -244,7 +246,7 @@ void QLItem::Scale(const int & w, const int &h)
  */
 void QLItem::Execute() 
 {
-	DBGOUT printf("Execute\n");
+	qllogger.logT("Execute");
  	pid_t pid;
 
    if (!(pid = fork())) 
@@ -267,7 +269,7 @@ void QLItem::Execute()
 
 void QLItem::ShowBalloon(const int &x, const int &y)
 {
-    DBGOUT printf ("QLItem balloon() [%s]", GetName() );
+    qllogger.logT("QLItem show balloon() [%s] [%x]", GetName(), _pTip );
 
 	if (_pTip != NULL)
 		static_cast<QLTip*>(_pTip)->ShowBalloon(x,y);
@@ -277,7 +279,8 @@ void QLItem::ShowBalloon(const int &x, const int &y)
 void QLItem::HideBalloon()
 {
 	if (_pTip != NULL)
-    {
+    {   
+        qllogger.logT("QLItem will hide the balloon() -> cast to qltip");
         static_cast<QLTip*>(_pTip)->HideBalloon();
         //delete _pTip;
         //_pTip = NULL;
@@ -297,7 +300,7 @@ QLWidget * QLItem::GetBalloon() const
 
 void QLItem::Select()
 {
-	DBGOUT printf("QLItem select : %d, %d, %d, %d\n", _x, _y, _width, _height);
+	qllogger.logT("QLItem select : %d, %d, %d, %d", _x, _y, _width, _height);
 
     imlib_context_set_image(im);
     imlib_context_set_color(255,255,255,50);

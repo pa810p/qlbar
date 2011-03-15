@@ -1,4 +1,4 @@
-This is QLBar 0.1.4 written by Pawel Prokop (pablo@wizard.ae.krakow.pl)
+This is QLBar 0.2.0 written by Pawel Prokop (pablo@wizard.ae.krakow.pl)
 --------------------------------------------------------------------------
 
 
@@ -22,10 +22,15 @@ Requirements
 
 - imlib2-1.4.0
 
+Optional
+--------
+
+- log4cxx-0.10.0
+
 Author
 ------
 
-Pawel Prokop (pablo@wizard.ae.krakow.pl)
+Pawel Prokop (pablo@wizard.uek.krakow.pl)
 
-Project homepage: http://prokop.ae.krakow.pl/projects/qlbar.html
+Project homepage: http://prokop.uek.krakow.pl/projects/qlbar.html
 

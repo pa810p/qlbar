@@ -115,7 +115,39 @@ qlconf.o qlconf.o: qlconf.cc /usr/include/regex.h \
   qlconf.h qlitem.h /usr/include/X11/Xlib.h /usr/include/X11/X.h \
   /usr/include/X11/Xfuncproto.h \
   /usr/lib/gcc/i486-slackware-linux/4.1.2/include/X11/Xosdefs.h \
-  /usr/local/include/Imlib2.h qlwidget.h qltip.h common.h constants.h
+  /usr/local/include/Imlib2.h qlwidget.h qltip.h common.h qllogger.h \
+  ../config.h /usr/local/include/log4cxx/logger.h \
+  /usr/local/include/log4cxx/helpers/appenderattachableimpl.h \
+  /usr/local/include/log4cxx/spi/appenderattachable.h \
+  /usr/local/include/log4cxx/logstring.h \
+  /usr/local/include/log4cxx/log4cxx.h \
+  /usr/local/include/log4cxx/helpers/transcoder.h \
+  /usr/local/include/log4cxx/helpers/objectptr.h \
+  /usr/local/include/log4cxx/helpers/object.h \
+  /usr/local/include/log4cxx/helpers/class.h \
+  /usr/lib/gcc/i486-slackware-linux/4.1.2/../../../../include/c++/4.1.2/map \
+  /usr/lib/gcc/i486-slackware-linux/4.1.2/../../../../include/c++/4.1.2/bits/stl_tree.h \
+  /usr/lib/gcc/i486-slackware-linux/4.1.2/../../../../include/c++/4.1.2/bits/stl_map.h \
+  /usr/lib/gcc/i486-slackware-linux/4.1.2/../../../../include/c++/4.1.2/bits/stl_multimap.h \
+  /usr/local/include/log4cxx/helpers/classregistration.h \
+  /usr/local/include/log4cxx/appender.h \
+  /usr/local/include/log4cxx/spi/optionhandler.h \
+  /usr/local/include/log4cxx/helpers/objectimpl.h \
+  /usr/local/include/log4cxx/helpers/mutex.h \
+  /usr/local/include/log4cxx/helpers/pool.h \
+  /usr/local/include/log4cxx/level.h \
+  /usr/local/include/log4cxx/spi/location/locationinfo.h \
+  /usr/local/include/log4cxx/helpers/objectoutputstream.h \
+  /usr/local/include/log4cxx/mdc.h \
+  /usr/local/include/log4cxx/helpers/outputstream.h \
+  /usr/local/include/log4cxx/helpers/charsetencoder.h \
+  /usr/local/include/log4cxx/helpers/resourcebundle.h \
+  /usr/local/include/log4cxx/helpers/messagebuffer.h \
+  /usr/lib/gcc/i486-slackware-linux/4.1.2/../../../../include/c++/4.1.2/sstream \
+  /usr/lib/gcc/i486-slackware-linux/4.1.2/../../../../include/c++/4.1.2/bits/sstream.tcc \
+  /usr/local/include/log4cxx/spi/loggerrepository.h \
+  /usr/local/include/log4cxx/spi/loggerfactory.h \
+  /usr/local/include/log4cxx/spi/hierarchyeventlistener.h constants.h
 
 /usr/include/regex.h:
 
@@ -420,5 +452,73 @@ qlwidget.h:
 qltip.h:
 
 common.h:
+
+qllogger.h:
+
+../config.h:
+
+/usr/local/include/log4cxx/logger.h:
+
+/usr/local/include/log4cxx/helpers/appenderattachableimpl.h:
+
+/usr/local/include/log4cxx/spi/appenderattachable.h:
+
+/usr/local/include/log4cxx/logstring.h:
+
+/usr/local/include/log4cxx/log4cxx.h:
+
+/usr/local/include/log4cxx/helpers/transcoder.h:
+
+/usr/local/include/log4cxx/helpers/objectptr.h:
+
+/usr/local/include/log4cxx/helpers/object.h:
+
+/usr/local/include/log4cxx/helpers/class.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.1.2/../../../../include/c++/4.1.2/map:
+
+/usr/lib/gcc/i486-slackware-linux/4.1.2/../../../../include/c++/4.1.2/bits/stl_tree.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.1.2/../../../../include/c++/4.1.2/bits/stl_map.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.1.2/../../../../include/c++/4.1.2/bits/stl_multimap.h:
+
+/usr/local/include/log4cxx/helpers/classregistration.h:
+
+/usr/local/include/log4cxx/appender.h:
+
+/usr/local/include/log4cxx/spi/optionhandler.h:
+
+/usr/local/include/log4cxx/helpers/objectimpl.h:
+
+/usr/local/include/log4cxx/helpers/mutex.h:
+
+/usr/local/include/log4cxx/helpers/pool.h:
+
+/usr/local/include/log4cxx/level.h:
+
+/usr/local/include/log4cxx/spi/location/locationinfo.h:
+
+/usr/local/include/log4cxx/helpers/objectoutputstream.h:
+
+/usr/local/include/log4cxx/mdc.h:
+
+/usr/local/include/log4cxx/helpers/outputstream.h:
+
+/usr/local/include/log4cxx/helpers/charsetencoder.h:
+
+/usr/local/include/log4cxx/helpers/resourcebundle.h:
+
+/usr/local/include/log4cxx/helpers/messagebuffer.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.1.2/../../../../include/c++/4.1.2/sstream:
+
+/usr/lib/gcc/i486-slackware-linux/4.1.2/../../../../include/c++/4.1.2/bits/sstream.tcc:
+
+/usr/local/include/log4cxx/spi/loggerrepository.h:
+
+/usr/local/include/log4cxx/spi/loggerfactory.h:
+
+/usr/local/include/log4cxx/spi/hierarchyeventlistener.h:
 
 constants.h:

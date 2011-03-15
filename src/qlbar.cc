@@ -1,23 +1,18 @@
 #include <stdio.h>
 #include <X11/extensions/shape.h>
-#include <pthread.h>
 
 #include "constants.h"
+#include "qllogger.h"
 #include "qlbar.h"
+
 
 /**
  * ctor creates bar and fill members with default values
  */
 QLBar::QLBar ()
 {
-	active = false;
-	if (pthread_create(&hidding_thread, NULL, hideBar, this) != 0)
-		fprintf(stderr, "Could not create thread\n");
-    pthread_detach(hidding_thread);
-
-	if (pthread_mutex_init(&graph_mutex, NULL) != 0)
-		fprintf(stderr, "Could not init mutex");
-
+    qllogger.logT("QLBar creation: [%x]", this);
+    shouldHideBar = false;
 }
 
 /**
@@ -25,7 +20,7 @@ QLBar::QLBar ()
  */
 QLBar::~QLBar()
 {
-	pthread_mutex_destroy(&graph_mutex);
+
 }
 
 /**
@@ -35,12 +30,13 @@ QLBar::~QLBar()
 int QLBar::Prepare()
 {
 
+    qllogger.logI("Preparing display");
 	XColor fg;
 
 	display = XOpenDisplay(getenv("DISPLAY"));
 
-	if (!display) {	
-		fprintf(stderr, "Could not open display");
+	if (!display) {
+        qllogger.logE("Could not open display");
 		return -1;
 	}
 
@@ -104,6 +100,8 @@ int QLBar::prepareFont()
 	imlib_add_path_to_font_path( _pcfg->GetFontDir() );
 	char font [MAX_FONT_NAME];
 	snprintf(font,MAX_FONT_NAME,"%s/%d", _pcfg->GetFontName(), _pcfg->GetFontSize());
+
+    qllogger.logI("Preparing font: %s", font);
 	_font = imlib_load_font( font );
 
 	return 0;
@@ -115,14 +113,20 @@ int QLBar::prepareFont()
  */
 int QLBar::getBarWidth() const
 {
+    int barWidth = -1;
 
-	if (_pcfg->GetBarWidth() == -1)
-		return (_pcfg->GetLayout() == BAR_HORIZONTAL) ?
+	if (_pcfg->GetBarWidth() == -1) {
+        barWidth = (_pcfg->GetLayout() == BAR_HORIZONTAL) ?
 			items.size() * _pcfg->GetIconWidth() : 
 			1;
-	else
-		return _pcfg->GetBarWidth();
+        qllogger.logT("Counted bar width: %d on layout: %d", barWidth, _pcfg->GetLayout());
+    }
+	else {
+		barWidth =  _pcfg->GetBarWidth();
+        qllogger.logT("Returning bar width from config: %d", barWidth);
+    }
 
+    return barWidth;
 }
 
 /**
@@ -131,13 +135,20 @@ int QLBar::getBarWidth() const
  */
 int QLBar::getBarHeight() const
 {
-	if (_pcfg->GetBarHeight() == -1)
-		return (_pcfg->GetLayout() == BAR_HORIZONTAL) ? 
+    int barHeight = -1;
+
+	if (_pcfg->GetBarHeight() == -1) {
+		barHeight = (_pcfg->GetLayout() == BAR_HORIZONTAL) ? 
 			items.size() * _pcfg->GetIconHeight() : 
 			_pcfg->GetIconWidth();
-
-	else
-		return _pcfg->GetBarHeight();
+        qllogger.logT("Counted bar height: %d on layout: %d", barHeight, _pcfg->GetLayout());
+    }
+	else {
+		barHeight = _pcfg->GetBarHeight();
+        qllogger.logT("Returning bar height from config: %d", barHeight);
+    }
+    
+    return barHeight;
 }
 
 
@@ -147,10 +158,13 @@ int QLBar::getBarHeight() const
 void QLBar::prepareItems()
 {
 
+    qllogger.logT("Preparing items...");
+
 	int icon_x = _icon_start_x;
 	int icon_y = _icon_start_y;
 	vector<QLItem *>::iterator it = items.begin();
 	for ( ; it != items.end(); it++){
+        qllogger.logT("(prepareItems) Will create UI on [%x]", (*it));
 		(*it)->CreateUI(display, window, icon_x, icon_y, _pcfg->GetIconWidth(), _pcfg->GetIconHeight());
 
 		if (_pcfg->GetShowBalloon()){
@@ -177,94 +191,131 @@ void QLBar::prepareItems()
 }
 
 
+void QLBar::handleEvent(const XEvent & ev) {
+	qllogger.logT("handleEvent");
+	switch (ev.type){
+		case Expose:
+		{
+			qllogger.logT("Event: expose");
+			// obtain displayed item, deeply - also tooltips if enabled
+			QLWidget * item = findWidget(ev.xexpose.window, true);
+       
+               //lock();
+
+			if (item != NULL)
+				item->Paint();
+
+			//XClearWindow(display, window);
+
+			break;
+		}
+		case LeaveNotify:
+		{
+                shouldHideBar = true;
+
+        		qllogger.logT("Event: leave");
+				QLWidget * item = findWidget(ev.xcrossing.window); // obtain leaving widget
+				if (item != NULL){
+         //               static_cast<QLItem*>(item)->UnSelect();
+                    qllogger.logT("hide balloon() [%s]", ((QLItem*)item)->GetName() );
+					static_cast<QLItem*>(item)->HideBalloon();
+                }
+                else {
+	   		    hideAllBalloons();
+                    }
+				break;
+        }
+		case EnterNotify:
+            shouldHideBar = false;
+		    if (ev.xcrossing.window == window) 
+			{ // enter to the bar line
+			    qllogger.logT("Event: enter to the line bar");
+				hideAllBalloons();
+
+				//TODO: show animated
+//				ScaleItems(_icon_height);
+				showAllItems();
+			}
+			else //enter to the icon
+			{
+                qllogger.logT("Event: enter to the icon");
+
+		    	QLWidget * item = findWidget(ev.xcrossing.window);
+				if (item != NULL){
+			        qllogger.logT("Found widget [%s]", static_cast<QLItem*>(item)->GetName());
+					//static_cast<QLItem*>(item)->ShowBalloon(v.xcrossing.x + 30,ev.xcrossing.y + 30);
+//					static_cast<QLItem*>(item)->Select();
+//                  static_cast<QLItem*>(item)->Paint();
+                    static_cast<QLItem*>(item)->ShowBalloon(30,30);
+                }
+                else {
+                    qllogger.logW("Widget not found.");
+                }
+		    }
+            qllogger.logT("End of EnterNotify event");
+
+			break;
+		case ButtonPress:
+		{
+            qllogger.logT("Event: buttonPress");
+			QLWidget * item = findWidget(ev.xcrossing.window);
+			if (item!=NULL) {
+		        qllogger.logT("Found widget [%s]", static_cast<QLItem*>(item)->GetName());
+				static_cast<QLItem*>(item)->Execute();
+            }
+            else {
+                qllogger.logW("Widget not found");
+            }
+	    }
+		break;
+			default:
+                qllogger.logT("Unrecognized event: %d", ev.type);
+				break;
+		}
+}
+
+
 /**
  * Function receive events from created windows
  * return bool true on success, false on failure
  */
 int QLBar::Run()
 {
+    int x11_fd;
+    fd_set in_fds;
+
+    x11_fd = ConnectionNumber(display);
+
+    XFlush(display);
+    int pending =0;
 	hideAllItems();
 
 	XEvent ev;
 	while (1) {
-		XNextEvent(display, &ev);
-		//DBGOUT printf("Event: %d\n", ev.type);
-		switch (ev.type){
-			case Expose:
-				{
-				DBGOUT printf("expose\n");
-				// obtain displayed item, deeply - also tooltips if enabled
-				QLWidget * item = findWidget(ev.xexpose.window, true);
-	
-				if (pthread_mutex_lock(&graph_mutex) != 0){
-					DBGOUT fprintf(stderr, "Cannot lock mutex\n");
-				}
+    
+        FD_ZERO(&in_fds);
+        FD_SET(x11_fd, &in_fds);
 
-				if (item != NULL)
-					item->Paint();
+        tv.tv_usec = 0;
+        tv.tv_sec = 1;
 
-				//XClearWindow(display, window);
+        if (select(x11_fd+1, &in_fds, 0, 0, &tv)) {
+        }
+        else {
+            if (true == shouldHideBar) {
+                hideAllItems();
+                shouldHideBar = false;
+            }
+        }
 
-				pthread_mutex_unlock(&graph_mutex);
-				break;
-				}
-			case LeaveNotify:
-				{
-					DBGOUT printf("leave\n");
-					QLWidget * item = findWidget(ev.xcrossing.window); // obtain leaving widget
-					
-					if (item != NULL){
-         //               static_cast<QLItem*>(item)->UnSelect();
-                        DBGOUT printf ("hide balloon() [%s]", ((QLItem*)item)->GetName() );
-						static_cast<QLItem*>(item)->HideBalloon();
-                    }
-                    else {
-					    hideAllBalloons();
-                    }
+        while(pending=XPending(display)) {
+       		XNextEvent(display, &ev);
+            handleEvent(ev);
+        }
 
-					active = true;
-					pthread_create(&hidding_thread, NULL, hideBar, this);
-                    pthread_detach(hidding_thread);
-				}
-				break;
-			case EnterNotify:
-				if (ev.xcrossing.window == window) 
-				{ // enter to the bar line
-				    DBGOUT printf("enter\n");
-					hideAllBalloons();
-					//TODO: show animated
-					pthread_cancel(hidding_thread);
-//					ScaleItems(_icon_height);
-					showAllItems();
-				}
-				else //enter to the icon
-				{
-		//			active = findWidget(ev.xcrossing.window);
-					pthread_cancel(hidding_thread);
-					//TODO: create balloon for item
-					QLWidget * item = findWidget(ev.xcrossing.window);
-				    DBGOUT printf("enter [%s]\n", static_cast<QLItem*>(item)->GetName());
-					if (item != NULL){
-						//static_cast<QLItem*>(item)->ShowBalloon(v.xcrossing.x + 30,ev.xcrossing.y + 30);
-//						static_cast<QLItem*>(item)->Select();
-//                      static_cast<QLItem*>(item)->Paint();
-						static_cast<QLItem*>(item)->ShowBalloon(30,30);
-                    }
-				}
 
-				break;
-			case ButtonPress:
-				{
-					QLWidget * item = findWidget(ev.xcrossing.window);
-					if (item!=NULL)
-						static_cast<QLItem*>(item)->Execute();
-				}
-				break;
-			default:
-				break;
-		}
 	};
-return 0;
+    return 0;
 }
 
 
@@ -294,8 +345,12 @@ QLWidget * QLBar::findWidget(const Window window, const bool deep) const
 }
 
 
+/**
+ * This function hides all balloons
+ */
 void QLBar::hideAllBalloons()
 {
+
 	vector<QLItem *>::const_iterator it = items.begin();
 	for (; it != items.end() ; it++)
     {
@@ -307,9 +362,7 @@ void QLBar::hideAllBalloons()
 /**
  * Function iterates through vector containing qlitems and hide each of them
  */
-void QLBar::hideAllItems() 
-{
-	pthread_mutex_lock(&graph_mutex);
+void QLBar::hideAllItems() {
 
 	vector<QLItem *>::const_iterator it = items.begin();
 	for (; it != items.end() ; it++)
@@ -320,7 +373,6 @@ void QLBar::hideAllItems()
 
 	XSync(display, False);
 
-	pthread_mutex_unlock(&graph_mutex);
 }
 
 /**
@@ -328,7 +380,6 @@ void QLBar::hideAllItems()
  */
 void QLBar::showAllItems()
 {
-	pthread_mutex_lock(&graph_mutex);
 
 	vector<QLItem *>::const_iterator it = items.begin();
 	for (; it != items.end() ; it++)
@@ -336,8 +387,6 @@ void QLBar::showAllItems()
 		(*it)->Show();
     }
 	XSync(display, False);
-
-	pthread_mutex_unlock(&graph_mutex);
 }
 
 
@@ -361,6 +410,7 @@ int QLBar::AddItem ( QLItem * pItem )
  */
 int QLBar::AddItem ( const int & index, QLItem * pItem )
 {
+    qllogger.logT("Adding item of index: %d", index);
 	int i = 0;
 	vector<QLItem *>::iterator it = items.begin();
 	for ( ; it != items.end(); it++,i++){
@@ -527,10 +577,6 @@ int QLBar::GetBarTime() const
 	return _pcfg->GetBarTime();
 }
 
-bool QLBar::GetActive() const 
-{
-	return active;
-}
 
 void QLBar::SetConfig(QLConf * cfg)
 {
@@ -549,27 +595,4 @@ void QLBar::SetConfig(QLConf * cfg)
 }
 
 
-////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////
-// thread function //
-void* hideBar(void * thid)
-{
-    DBGOUT printf("will hide %d\n", pthread_self());
-	QLBar * qb = static_cast<QLBar *> (thid);
-	if (qb == NULL) {
-        DBGOUT printf("qb==NULL\n");
-		pthread_exit(0);
-	}
 
-	if (!qb->GetActive()){
-        DBGOUT printf("!GetActive()\n");
-		pthread_exit(0);
-    }
-
-	sleep(qb->GetBarTime()); // wait a second and then hide all items
-	if (qb!=NULL)
-		qb->hideAllItems();
-
-	pthread_exit(0);
-}

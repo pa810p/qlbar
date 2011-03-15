@@ -4,6 +4,7 @@
 
 #include "constants.h"
 #include "qltip.h"
+#include "qllogger.h"
 
 
 /**
@@ -12,6 +13,7 @@
  */
 QLTip::QLTip (Balloon bal)
 {
+    qllogger.logT("QLTip creation ctor(Balloon): [%x]", this);
     _bal = bal;
     _width = 60;
     _height = 20;
@@ -116,15 +118,18 @@ void QLTip::Paint()
         return;
 
     //DBGOUT printf("QLTip paint : %d, %d, %d, %d\n", _x, _y, _width, _height);
-    DBGOUT printf("QLTip paint [%s]\n", _bal.caption);
+    qllogger.logT("QLTip paint [%s]", _bal.caption);
 
     imlib_context_set_drawable(_window);
+    qllogger.logT("imlib_context_set_drawable to [%x]", &_window);
     imlib_context_set_image(im);
+    qllogger.logT("imlib_context_set_image to [%x]", &im);
     imlib_render_image_on_drawable(0,0);
+    qllogger.logT("imlib_render_image_on_drawable");
     XRaiseWindow(_display, _window);
+    qllogger.logT("done: XRaiseWindow");
 
     Show();
-
 }
 
 
@@ -139,6 +144,7 @@ void QLTip::Paint()
 void QLTip::ShowBalloon( const int & x, const int & y)
 {
     _visible = true;
+    qllogger.logT("QLTip will show balloon at: %d, %d", x, y);
     this->Paint();
 }
 
@@ -146,6 +152,7 @@ void QLTip::ShowBalloon( const int & x, const int & y)
 void QLTip::HideBalloon()
 {
     _visible = false;
+    qllogger.logT("QLTip will hide widget");
     QLWidget::Hide();
 }
 

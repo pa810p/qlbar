@@ -1,4 +1,12 @@
 -----------------------------
+Tue Mar 15 21:30:39 CET 2011
+version 0.2.0
+
+- bugfix: sudden qlbar die for some reasons has been fixed.
+- feature: support for logging has been added. New available
+  qlbar parameters: --log, --loglevel, --logfile
+
+-----------------------------
 Wed Aug 13 20:10:39 CEST 2008
 version 0.1.4
 

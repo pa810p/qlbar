@@ -9,11 +9,11 @@
 /* Define to 1 if you have the `Imlib2' library (-lImlib2). */
 #undef HAVE_LIBIMLIB2
 
-/* Define to 1 if you have the `pthread' library (-lpthread). */
-#undef HAVE_LIBPTHREAD
-
 /* Define to 1 if you have the `Xext' library (-lXext). */
 #undef HAVE_LIBXEXT
+
+/* Define if you have log4cxx */
+#undef HAVE_LOG4CXX
 
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H

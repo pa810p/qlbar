@@ -3,7 +3,6 @@
 
 #include <X11/Xlib.h>
 #include <stdlib.h>
-#include <pthread.h>
 
 #include "constants.h"
 #include "qlitem.h"
@@ -43,19 +42,19 @@ class QLBar {
 
 		Imlib_Font _font;
 
-		pthread_t hidding_thread ;
-		pthread_mutex_t graph_mutex;
-
 		void prepareItems();
 		int prepareFont();
 		int getBarWidth() const;
 		int getBarHeight() const;
 
 		QLWidget * findWidget (const Window window, const bool deep = false) const;
-		bool active;
 
 		void ComputeXY(int &x, int &y, int &ic_x, int &ic_y, int &ttv_x, int & ttv_y) ;
 
+        struct timeval tv;
+
+
+        bool shouldHideBar;
 	public:
 		QLBar ();
 		~QLBar ();
@@ -77,6 +76,11 @@ class QLBar {
         void hideAllBalloons();
 
 		int GetBarTime () const;
+
+        void lock();
+        void unlock();
+
+        void handleEvent(const XEvent &ev);
 };
 
 #endif

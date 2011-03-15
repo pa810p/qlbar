@@ -49,7 +49,7 @@ binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_qlbar_OBJECTS = common.$(OBJEXT) qlconf.$(OBJEXT) qlbar.$(OBJEXT) \
 	qlitem.$(OBJEXT) qltip.$(OBJEXT) qlwidget.$(OBJEXT) \
-	main.$(OBJEXT)
+	main.$(OBJEXT) qllogger.$(OBJEXT)
 qlbar_OBJECTS = $(am_qlbar_OBJECTS)
 qlbar_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -65,13 +65,13 @@ DIST_SOURCES = $(qlbar_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/pablo/projects/qlbar/qlbar-0.1.4/missing --run aclocal-1.9
+ACLOCAL = ${SHELL} /home/pablo/workspace/qlbar/trunk/missing --run aclocal-1.9
 AMDEP_FALSE = #
 AMDEP_TRUE = 
-AMTAR = ${SHELL} /home/pablo/projects/qlbar/qlbar-0.1.4/missing --run tar
-AUTOCONF = ${SHELL} /home/pablo/projects/qlbar/qlbar-0.1.4/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/pablo/projects/qlbar/qlbar-0.1.4/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/pablo/projects/qlbar/qlbar-0.1.4/missing --run automake-1.9
+AMTAR = ${SHELL} /home/pablo/workspace/qlbar/trunk/missing --run tar
+AUTOCONF = ${SHELL} /home/pablo/workspace/qlbar/trunk/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/pablo/workspace/qlbar/trunk/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/pablo/workspace/qlbar/trunk/missing --run automake-1.9
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -80,7 +80,7 @@ CPP = gcc -E
 CPPFLAGS = 
 CXX = g++
 CXXDEPMODE = depmode=gcc3
-CXXFLAGS = -g -O2
+CXXFLAGS = -g -O2 -ggdb
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
@@ -96,21 +96,22 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -lpthread -lXext -lImlib2 
+LIBS = -lXext -lImlib2 
+LOG4CXX = -llog4cxx
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/pablo/projects/qlbar/qlbar-0.1.4/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/pablo/workspace/qlbar/trunk/missing --run makeinfo
 OBJEXT = o
 PACKAGE = qlbar
-PACKAGE_BUGREPORT = pablo@wizard.ae.krakow.pl
+PACKAGE_BUGREPORT = pablo@wizard.uek.krakow.pl
 PACKAGE_NAME = QLBar
-PACKAGE_STRING = QLBar 0.1.4
+PACKAGE_STRING = QLBar 0.2.0
 PACKAGE_TARNAME = qlbar
-PACKAGE_VERSION = 0.1.4
+PACKAGE_VERSION = 0.2.0
 PATH_SEPARATOR = :
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = 
-VERSION = 0.1.4
+VERSION = 0.2.0
 XMKMF = 
 ac_ct_CC = gcc
 ac_ct_CXX = g++
@@ -134,7 +135,7 @@ host_alias =
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = /home/pablo/projects/qlbar/qlbar-0.1.4/install-sh
+install_sh = /home/pablo/workspace/qlbar/trunk/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -150,8 +151,8 @@ sbindir = ${exec_prefix}/sbin
 sharedstatedir = ${prefix}/com
 sysconfdir = ${prefix}/etc
 target_alias = 
-qlbar_SOURCES = common.cc qlconf.cc qlbar.cc qlitem.cc qltip.cc qlwidget.cc main.cc
-qlbar_LDFLAGS = -lX11 -lImlib2 -lXext -lpthread
+qlbar_SOURCES = common.cc qlconf.cc qlbar.cc qlitem.cc qltip.cc qlwidget.cc main.cc qllogger.cc
+qlbar_LDFLAGS = -lX11 -lImlib2 -lXext -lpthread ${LOG4CXX}
 all: all-am
 
 .SUFFIXES:
@@ -223,6 +224,7 @@ include ./$(DEPDIR)/main.Po
 include ./$(DEPDIR)/qlbar.Po
 include ./$(DEPDIR)/qlconf.Po
 include ./$(DEPDIR)/qlitem.Po
+include ./$(DEPDIR)/qllogger.Po
 include ./$(DEPDIR)/qltip.Po
 include ./$(DEPDIR)/qlwidget.Po
 

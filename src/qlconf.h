@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "qlitem.h"
+#include "qllogger.h"
 
 using namespace std;
 
@@ -74,7 +75,18 @@ class QLConf {
         bool daemonize;
         bool b_daemonize;
 
+        bool logging;
+        bool b_logging;
+
+        QLLogger::Level logLevel;
+        bool b_logLevel;
+
+        char * logFile;
+        bool b_logFile;
+
 		vector <QLItem *> items;
+        
+        QLLogger::Level parseLogLevel(const char *);
 
 	protected:
 		int comp (const char *, const char *) const;
@@ -115,6 +127,8 @@ class QLConf {
 		long	GetBalloonColor() const { return balloon_color; };
 		bool	GetShowBalloon() const { return show_balloon; };
         bool    GetDaemonize() const { return daemonize; };
+        QLLogger::Level     GetLogLevel() const { return logLevel; };
+        char *  GetLogFile() const { return logFile; };
 
 		vector<QLItem*> * GetItems() { return &items; }
 

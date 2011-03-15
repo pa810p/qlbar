@@ -8,8 +8,14 @@
 #include "qlbar.h"
 #include "qlconf.h"
 
+#include "qllogger.h"
+
+#include "../config.h"
+
+
 
 using namespace std;
+
 
 /**
  * Functions displays program header, version number and program name
@@ -40,7 +46,9 @@ void Usage ()
 	printf("  -m, --menu          file containing toolbar icon information\n");
 	printf("  -p, --position      position of a toolbar: n, ne, e, se, s, sw, w, nw\n");
 	printf("  -t, --bar-time      time after bar will hide\n");
-	printf("  -v, --verbose       verbose display on stderr\n");
+	printf("  -L, --log           application will produce default (warn level) logs\n");
+    printf("      --loglevel      the log level: trace, debug, info, warn, error, fatal\n");
+    printf("      --logfile       log filename, default: stdout\n");
 	printf("      --voffset       vertical toolbar offset from corner defined in --position option\n");
 	printf("  -V, --vertical      toolbar will be placed verticaly\n"); 
 //	printf("available from version 0.1.2:\n");
@@ -60,6 +68,7 @@ void Usage ()
 
 int main (int argc, char ** argv)
 {
+
 	// show header
 	Header();
 
@@ -79,7 +88,6 @@ int main (int argc, char ** argv)
 		{"horizontal", 0, 0, 'H'},
 		{"vertical", 0, 0, 'V'},
 		{"bar-time", 1, 0, 't'},
-		{"verbose", 0, 0, 'v'},
 		{"layout", 1, 0, 'l'},
 		{"hoffset", 1, 0, 0},
 		{"voffset", 1, 0, 0},
@@ -88,7 +96,10 @@ int main (int argc, char ** argv)
 		{"font-dir", 1, 0, 'd'},
 		{"font-color", 1, 0, 0},
 		{"show-balloon", 1, 0, 'B'},
-        {"daemonize", 0, 0, 'D'}
+        {"daemonize", 0, 0, 'D'},
+        {"log", 1, 0, 'L'},
+        {"loglevel", 1, 0, 0},
+        {"logfile", 1, 0, 0},
 	};
 
 	// first parse options
@@ -100,7 +111,7 @@ int main (int argc, char ** argv)
 	int i=0;
 	int option_index;
 
-	while ((i=getopt_long(argc,argv, "DhHVvl:m:c:p:t:f:s:d:B:", long_options, &option_index ))!=-1)
+	while ((i=getopt_long(argc,argv, "DhHVLl:m:c:p:t:f:s:d:B:", long_options, &option_index ))!=-1)
 	{
 		switch(i)
 		{
@@ -167,6 +178,10 @@ int main (int argc, char ** argv)
 				break;
             case 'D':
                 if (cfg.Parse("daemonize", optarg, true) == -1)
+                    return -1;
+                break;
+            case 'L':
+                if (cfg.Parse("log", optarg, true) == -1)
                     return -1;
                 break;
 			case 0:
@@ -240,12 +255,21 @@ int main (int argc, char ** argv)
 		config_file = NULL;
 	}
 
+    // initializing logger
+    qllogger.initialize(cfg.GetLogLevel(), cfg.GetLogFile());
+    qllogger.logI("Started QLBar version: %s", QLBAR_VERSION);
+
 	// post-analyze config
 	if (! cfg.Validate(true) )
 		return 0;
 
 	QLBar qlbar;
 	qlbar.SetConfig(&cfg);
+
+
+
+
+    char * logString = new char [128];
 
 	qlbar.Prepare();
 	qlbar.Run();

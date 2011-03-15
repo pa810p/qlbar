@@ -5,9 +5,10 @@
 
 #include "qlconf.h"
 #include "constants.h"
+#include "qllogger.h"
 
 
-
+extern QLLogger qllogger;
 
 
 /**
@@ -33,6 +34,8 @@ QLConf::QLConf()
 	b_balloon_color = false;
 	b_show_balloon = false;
     b_daemonize = false;
+    b_logging = false;
+    b_logLevel = false;
 
 	icon_width = 32;
 	icon_height = 32;
@@ -51,7 +54,9 @@ QLConf::QLConf()
 	balloon_color = 0xffff00;
 	show_balloon = true;    
     daemonize = false;
-
+    logging = true;
+    logLevel = QLLogger::ERROR;
+    logFile = NULL;
 }
 
 /**
@@ -234,6 +239,15 @@ int QLConf::Parse(const char * optname, const char * value, const bool ov)
     else if (!comp(optname, "daemonize")){
         SetT(&daemonize, true, &b_daemonize, ov);
     }
+    else if (!comp(optname, "log")) {
+        SetT(&logging, true, &b_logging, ov);
+    }
+    else if (!comp(optname, "loglevel")){
+        SetT(&logLevel, parseLogLevel(value), &b_logLevel, ov);
+    }
+    else if (!comp(optname, "logfile")) {
+        Set(&logFile, value, &b_logFile, ov);
+    }
 	else
 	{
 		fprintf(stderr, "Unknown option: %s = %s\n", optname, value);
@@ -241,6 +255,37 @@ int QLConf::Parse(const char * optname, const char * value, const bool ov)
 	}	
 
 	return 0;
+}
+
+QLLogger::Level QLConf::parseLogLevel(const char * strLogLevel) {
+    QLLogger::Level level = QLLogger::TRACE;
+
+    if (NULL != strLogLevel) {
+        if (strncmp(strLogLevel, "trace", 6) == 0) {
+            level = QLLogger::TRACE;
+        }
+        else if (strncmp(strLogLevel, "debug", 6) == 0) {
+            level = QLLogger::DEBUG;
+        }
+        else if (strncmp(strLogLevel, "info", 6) == 0) {
+            level = QLLogger::INFO;
+        }
+        else if (strncmp(strLogLevel, "warn", 6) == 0) {
+            level = QLLogger::WARN;
+        }
+        else if (strncmp(strLogLevel, "error", 6) == 0) {
+            level = QLLogger::ERROR;
+        }
+        else if (strncmp(strLogLevel, "fatal", 6) == 0) {
+            level = QLLogger::FATAL;
+        }
+        else {
+            fprintf(stderr, "Unknown logging level, log is set to TRACE");
+        }
+        
+    }
+
+    return level;
 }
 
 
@@ -416,6 +461,8 @@ void QLConf::Error(const char * msg, const bool verbose) const
  */
 bool QLConf::Validate(const bool verbose) 
 {
+    qllogger.logT("Validating...");
+
 	int valid = true;
 	switch (this->GetLayout()){
 		case BAR_HORIZONTAL:

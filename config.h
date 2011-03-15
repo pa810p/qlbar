@@ -10,11 +10,11 @@
 /* Define to 1 if you have the `Imlib2' library (-lImlib2). */
 #define HAVE_LIBIMLIB2 1
 
-/* Define to 1 if you have the `pthread' library (-lpthread). */
-#define HAVE_LIBPTHREAD 1
-
 /* Define to 1 if you have the `Xext' library (-lXext). */
 #define HAVE_LIBXEXT 1
+
+/* Define if you have log4cxx */
+#define HAVE_LOG4CXX 1
 
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
@@ -76,25 +76,25 @@
 #define PACKAGE "qlbar"
 
 /* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT "pablo@wizard.ae.krakow.pl"
+#define PACKAGE_BUGREPORT "pablo@wizard.uek.krakow.pl"
 
 /* Define to the full name of this package. */
 #define PACKAGE_NAME "QLBar"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "QLBar 0.1.4"
+#define PACKAGE_STRING "QLBar 0.2.0"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "qlbar"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "0.1.4"
+#define PACKAGE_VERSION "0.2.0"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "0.1.4"
+#define VERSION "0.2.0"
 
 /* Define to empty if `const' does not conform to ANSI C. */
 /* #undef const */
