@@ -22,7 +22,7 @@ using namespace std;
  */
 void Header ()
 {
-	printf("This is QLBar %s written by %s.\n", QLBAR_VERSION, QLBAR_AUTHOR);
+	printf("This is %s written by %s (%s).\n", PACKAGE_STRING, QLBAR_AUTHOR, PACKAGE_BUGREPORT);
 	printf("Distributed under terms of GNU General Public License\n\n");
 }
 
@@ -257,7 +257,7 @@ int main (int argc, char ** argv)
 
     // initializing logger
     qllogger.initialize(cfg.GetLogLevel(), cfg.GetLogFile());
-    qllogger.logI("Started QLBar version: %s", QLBAR_VERSION);
+    qllogger.logI("Started QLBar version: %s", PACKAGE_VERSION);
 
 	// post-analyze config
 	if (! cfg.Validate(true) )

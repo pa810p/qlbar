@@ -3,8 +3,8 @@
 
 //#define DEBUG
 
-#define QLBAR_VERSION	"0.1.4"
-#define QLBAR_AUTHOR	"Pawel Prokop <pablo@wizard.ae.krakow.pl>"
+// #define QLBAR_VERSION	"0.1.4"
+#define QLBAR_AUTHOR	"Pawel Prokop"
 
 
 #ifdef DEBUG

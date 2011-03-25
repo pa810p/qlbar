@@ -1,4 +1,11 @@
 -----------------------------
+Fri Mar 25 21:02:59 CET 2011
+version 0.2.1
+
+- cosmetic fix: current version display during application start
+  (previous release did not increment version)
+
+-----------------------------
 Tue Mar 15 21:30:39 CET 2011
 version 0.2.0
 

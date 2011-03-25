@@ -1,3 +1,6 @@
+#include <string.h>
+#include <stdio.h>
+
 #include "qllogger.h"
 
 #ifdef HAVE_LOG4CXX
@@ -13,7 +16,9 @@
 #endif
 
 QLLogger::QLLogger() {
+#ifdef HAVE_LOG4CXX
     this->logger = Logger::getLogger("qlbar");
+#endif
 }
 
 QLLogger::QLLogger(Level level) {
@@ -80,31 +85,49 @@ void QLLogger::log(Level level, char * message) {
         case TRACE: 
 #ifdef HAVE_LOG4CXX
             LOG4CXX_TRACE(logger, message);
+#else
+            fprintf(stderr, "TRACE: ");
+            fprintf(stderr, message);            
 #endif
             break;
         case DEBUG:
 #ifdef HAVE_LOG4CXX
             LOG4CXX_DEBUG(logger, message);
+#else
+            fprintf(stderr, "DEBUG: ");
+            fprintf(stderr, message);            
 #endif
             break;
         case INFO:
 #ifdef HAVE_LOG4CXX
             LOG4CXX_INFO(logger, message);
+#else
+            fprintf(stderr, "INFO: ");
+            fprintf(stderr, message);            
 #endif
             break;
         case WARN:
 #ifdef HAVE_LOG4CXX
             LOG4CXX_WARN(logger, message);
+#else
+            fprintf(stderr, "WARN: ");
+            fprintf(stderr, message);            
 #endif
             break;
         case ERROR:
 #ifdef HAVE_LOG4CXX
             LOG4CXX_ERROR(logger, message);
+#else
+            fprintf(stderr, "ERROR: ");
+            fprintf(stderr, message);            
 #endif
             break;
         case FATAL:
 #ifdef HAVE_LOG4CXX
             LOG4CXX_FATAL(logger, message);
+#else
+            fprintf(stderr, "FATAL: ");
+            fprintf(stderr, message);            
 #endif
             break;
         default:

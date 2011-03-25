@@ -1,6 +1,6 @@
-.TH QLBAR 8 2008-05-04 "QLBar Cool ToolBar"
+.TH QLBAR 8 2011-03-15 "QLBar Cool ToolBar"
 .SH NAME 
-qlbar-0.1.4 \- Cool Toolbar for X11
+qlbar-0.2.0 \- Cool Toolbar for X11
 .SH SYNOPSIS
 .B qlbar
 [-hHVv] [-c config file] [-m menu file] [--bar-color color] 
@@ -76,6 +76,16 @@ height of the icons in pixels
 layout may be
 .B horizontal \fR(default) or\fP vertical
 .TP 
+.B \-L \fRor\fP \-\-log
+application will produce logs (by default to stderr)
+.TP 
+.B \-\-loglevel
+this option specifies log level that will be logged. May one of: 
+trace, debug, info, warn, error, fatal
+.TP
+.B \-\-logfile
+this option specifies the log output file
+.TP
 .B \-m \fRor\fP \-\-menu
 file containing items information: name, execute path, icon file path.
 Menu file format is compatible with fluxbox menu file and contains lines
@@ -121,6 +131,6 @@ GPL.
 .SH AUTHOR
 The author of 
 .B qlbar
-is Pawel Prokop (pablo@wizard.ae.krakow.pl)
+is Pawel Prokop (pablo@wizard.uek.krakow.pl)
 .br
-homepage of this project is : http://prokop.ae.krakow.pl/projects/qlbar.html
+homepage of this project is : http://prokop.uek.krakow.pl/projects/qlbar.html
