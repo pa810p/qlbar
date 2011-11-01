@@ -126,6 +126,7 @@ class QLConf {
 		long	GetFontColor() const { return font_color; };
 		long	GetBalloonColor() const { return balloon_color; };
 		bool	GetShowBalloon() const { return show_balloon; };
+        void    SetShowBalloon(bool show) { show_balloon = show; };
         bool    GetDaemonize() const { return daemonize; };
         QLLogger::Level     GetLogLevel() const { return logLevel; };
         char *  GetLogFile() const { return logFile; };

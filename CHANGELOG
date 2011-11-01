@@ -1,3 +1,13 @@
+Tue, 1 Nov 2011, 11:37:32 CET
+version 0.2.2
+
+- enhancement: logging level support added to default logging 
+  facility when log4cxx is not used
+- bugfix: --log switch not needing parameter any more
+- cosmetic fix: suppress warnings from Imlib2 when font was 
+  not found
+- removed deprecation warnings
+
 -----------------------------
 Fri Mar 25 21:02:59 CET 2011
 version 0.2.1

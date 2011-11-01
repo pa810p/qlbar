@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <X11/extensions/shape.h>
+#include <sys/time.h>
 
 #include "constants.h"
 #include "qllogger.h"
 #include "qlbar.h"
 
+extern QLLogger qllogger;
 
 /**
  * ctor creates bar and fill members with default values
@@ -36,14 +38,16 @@ int QLBar::Prepare()
 	display = XOpenDisplay(getenv("DISPLAY"));
 
 	if (!display) {
-        qllogger.logE("Could not open display");
+        qllogger.logE("Could not open display. Abort!");
 		return -1;
 	}
 
 	_defScreen = DefaultScreen(display);
 	visual = DefaultVisual(display, _defScreen);
-	if (!visual)
+	if (!visual) {
+        qllogger.logE("Could not open default visual. Abort!");
 		return -1;
+    }
 
 	root = RootWindow(display, _defScreen);
 
@@ -62,6 +66,7 @@ int QLBar::Prepare()
 	
 	//TODO: create separate structure/class for coords below
 	ComputeXY(_bar_x, _bar_y, _icon_start_x, _icon_start_y, _tooltipv_x, _tooltipv_y);
+
 
 	XSetWindowAttributes attrib;
 	attrib.override_redirect = True;
@@ -103,6 +108,12 @@ int QLBar::prepareFont()
 
     qllogger.logI("Preparing font: %s", font);
 	_font = imlib_load_font( font );
+
+    if (NULL == _font) {
+        qllogger.logE("Could not find font in: %s", _pcfg->GetFontDir());
+        qllogger.logI("Disabling  balloon display");
+        _pcfg->SetShowBalloon(false);
+    }
 
 	return 0;
 }
@@ -193,6 +204,7 @@ void QLBar::prepareItems()
 
 void QLBar::handleEvent(const XEvent & ev) {
 	qllogger.logT("handleEvent");
+
 	switch (ev.type){
 		case Expose:
 		{
@@ -226,6 +238,7 @@ void QLBar::handleEvent(const XEvent & ev) {
 				break;
         }
 		case EnterNotify:
+
             shouldHideBar = false;
 		    if (ev.xcrossing.window == window) 
 			{ // enter to the bar line
@@ -257,7 +270,8 @@ void QLBar::handleEvent(const XEvent & ev) {
 			break;
 		case ButtonPress:
 		{
-            qllogger.logT("Event: buttonPress");
+            qllogger.logD("Event: buttonPress ");
+
 			QLWidget * item = findWidget(ev.xcrossing.window);
 			if (item!=NULL) {
 		        qllogger.logT("Found widget [%s]", static_cast<QLItem*>(item)->GetName());
@@ -291,6 +305,7 @@ int QLBar::Run()
 	hideAllItems();
 
 	XEvent ev;
+
 	while (1) {
     
         FD_ZERO(&in_fds);
@@ -307,6 +322,8 @@ int QLBar::Run()
                 shouldHideBar = false;
             }
         }
+
+        qllogger.logD("Event: %d: %d", tv.tv_sec, tv.tv_usec);
 
         while(pending=XPending(display)) {
        		XNextEvent(display, &ev);
@@ -561,6 +578,13 @@ void QLBar::ComputeXY(int & x, int & y, int & ic_x, int & ic_y, int & ttv_x, int
 			}
 			break;
 	}
+
+    qllogger.logD("ComputedXY: %d, %d, %d, %d, %d, %d", x, y, ic_x, ic_y, ttv_x, ttv_y);
+
+    if (x < 0 || y < 0) 
+        qllogger.logW("Bar start position is out of screen: [%d,%d]", x, y);
+    
+
 }
 
 

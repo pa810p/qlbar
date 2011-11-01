@@ -40,19 +40,19 @@ class QLLogger {
          * @param Level logging level
          * @param logFile a destination file name
          */
-        void initialize(Level, char * logFile);
+        void initialize(Level, const char * logFile);
 
         /**
          * This method logs a message with given level
          */
-        void log(Level level, char * message);
+        void log(Level level, const char * message);
 
-        void logT(char * format, ...);
-        void logD(char * format, ...);
-        void logI(char * format, ...);
-        void logW(char * format, ...);
-        void logE(char * format, ...);
-        void logF(char * format, ...);
+        void logT(const char * format, ...);
+        void logD(const char * format, ...);
+        void logI(const char * format, ...);
+        void logW(const char * format, ...);
+        void logE(const char * format, ...);
+        void logF(const char * format, ...);
 
 
     private:
@@ -60,15 +60,12 @@ class QLLogger {
 #ifdef HAVE_LOG4CXX
         log4cxx::LoggerPtr logger; //(log4cxx::Logger::getLogger("qlbar"));
         log4cxx::LevelPtr getLog4cxxLevel(Level level);
+#else
+        Level logLevel;
 #endif
 
+
 };
-
-
-/**
- * One static fantastic global logger in the application
- */
-static QLLogger qllogger;
 
 #endif
 

@@ -83,4 +83,6 @@ class QLBar {
         void handleEvent(const XEvent &ev);
 };
 
+
+
 #endif

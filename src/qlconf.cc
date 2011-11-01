@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include <stdlib.h>
+#include <cstring>
 
 #include "qlconf.h"
 #include "constants.h"
@@ -144,6 +145,7 @@ void QLConf::Set(char** dst, const char* src, bool * state, const bool ov)
  */
 int QLConf::Parse(const char * optname, const char * value, const bool ov)
 {
+
 	if (!comp(optname, "icon-width"))
 		SetT(&icon_width,atoi(value),&b_icon_width, ov);
 
@@ -260,6 +262,8 @@ int QLConf::Parse(const char * optname, const char * value, const bool ov)
 QLLogger::Level QLConf::parseLogLevel(const char * strLogLevel) {
     QLLogger::Level level = QLLogger::TRACE;
 
+    //fprintf(stderr, "optname: %s:%s", optname, value);
+
     if (NULL != strLogLevel) {
         if (strncmp(strLogLevel, "trace", 6) == 0) {
             level = QLLogger::TRACE;
@@ -302,7 +306,7 @@ int QLConf::ReadMenuConfig( const char * filename )
 	regex_t rexec;
 	regmatch_t match[4];
 
-	char * pattern = 
+	const char * pattern = 
 		"^[[:blank:]]*\\[exec\\][[:blank:]]*\\((.*)\\)[[:blank:]]*\\{(.*)\\}[[:blank:]]*<(.*)>";
 
 	if(regcomp(&rexec,pattern, REG_EXTENDED ) != 0)
@@ -368,7 +372,7 @@ int QLConf::ReadConfigFile(const char * filename)
 	regex_t rexec;
 	regmatch_t match [3];
 
-	char * pattern = "^([a-zA-Z-]+)[[:blank:]]*=[[:blank:]]([/a-zA-Z0-9-]*)";
+	const char * pattern = "^([a-zA-Z-]+)[[:blank:]]*=[[:blank:]]([/a-zA-Z0-9-]*)";
 
 	if(regcomp(&rexec,pattern, REG_EXTENDED ) != 0) {
 		fprintf(stderr, "error compile regex");
@@ -449,6 +453,8 @@ int QLConf::GetBarHeight(bool asis) const
  */
 void QLConf::Error(const char * msg, const bool verbose) const
 {
+    qllogger.logE(msg);
+    
 	if (verbose)
 		fprintf(stderr, msg);
 }
@@ -521,6 +527,5 @@ bool QLConf::Validate(const bool verbose)
 		
 
 	return valid;
-
 }
 

@@ -6,6 +6,8 @@
 #include "qltip.h"
 #include "qllogger.h"
 
+extern QLLogger qllogger;
+
 
 /**
  * Constructor

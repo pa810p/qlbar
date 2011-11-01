@@ -3,13 +3,14 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <X11/extensions/shape.h>
+#include <string.h>
+#include <stdlib.h>
 
-#include <string>
 #include "qllogger.h"
 #include "constants.h"
 #include "qlitem.h"
 
-
+extern QLLogger qllogger;
 
 /**
  * ctor fills members with default value, reads icons

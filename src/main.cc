@@ -3,6 +3,7 @@
 #include <getopt.h>
 
 #include <vector>
+#include <string.h>
 
 #include "constants.h"
 #include "qlbar.h"
@@ -15,6 +16,8 @@
 
 
 using namespace std;
+
+extern QLLogger qllogger;
 
 
 /**
@@ -97,7 +100,7 @@ int main (int argc, char ** argv)
 		{"font-color", 1, 0, 0},
 		{"show-balloon", 1, 0, 'B'},
         {"daemonize", 0, 0, 'D'},
-        {"log", 1, 0, 'L'},
+        {"log", 0, 0, 'L'},
         {"loglevel", 1, 0, 0},
         {"logfile", 1, 0, 0},
 	};
@@ -212,27 +215,6 @@ int main (int argc, char ** argv)
 	int home_len = strlen(home);
 	int qlbdir_len = strlen(QLB_DEF_DIR);
 
-	// menu config
-	if (menu_config_file == NULL) {
-		int len = strlen (def_menu);
-		menu_config_file = new char [ home_len + qlbdir_len + len + 2 ];
-		strncpy (menu_config_file, home, home_len + 1);
-		strncat (menu_config_file, "/", 1);
-		strncat (menu_config_file, QLB_DEF_DIR, qlbdir_len + 1);
-		strncat (menu_config_file, def_menu, len+1);
-	}
-
-	if (menu_config_file != NULL){
-		if (cfg.ReadMenuConfig(menu_config_file) == -1){
-			delete [] menu_config_file; // config filename is no longer needed
-			menu_config_file = NULL;
-			fprintf(stderr, "Cannot read menu config file. Abort\n");
-			return -1;
-		}
-		delete [] menu_config_file;
-		menu_config_file = NULL;
-	}
-
 	// main config
 	if (config_file == NULL) {
 		int len = strlen (def_config);
@@ -256,17 +238,39 @@ int main (int argc, char ** argv)
 	}
 
     // initializing logger
+
     qllogger.initialize(cfg.GetLogLevel(), cfg.GetLogFile());
     qllogger.logI("Started QLBar version: %s", PACKAGE_VERSION);
+
+
+	// menu config
+	if (menu_config_file == NULL) {
+		int len = strlen (def_menu);
+		menu_config_file = new char [ home_len + qlbdir_len + len + 2 ];
+		strncpy (menu_config_file, home, home_len + 1);
+		strncat (menu_config_file, "/", 1);
+		strncat (menu_config_file, QLB_DEF_DIR, qlbdir_len + 1);
+		strncat (menu_config_file, def_menu, len+1);
+	}
+
+	if (menu_config_file != NULL){
+		if (cfg.ReadMenuConfig(menu_config_file) == -1){
+			delete [] menu_config_file; // config filename is no longer needed
+			menu_config_file = NULL;
+            qllogger.logE("Cannot read menu config file. Abort!");
+			return -1;
+		}
+		delete [] menu_config_file;
+		menu_config_file = NULL;
+	}
+
 
 	// post-analyze config
 	if (! cfg.Validate(true) )
 		return 0;
-
+    
 	QLBar qlbar;
 	qlbar.SetConfig(&cfg);
-
-
 
 
     char * logString = new char [128];

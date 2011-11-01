@@ -4,6 +4,9 @@
 
 #include <stdio.h>
 
+extern QLLogger qllogger;
+
+
 QLWidget::QLWidget()
 {
     qllogger.logT("QLWidget creation: [%x]", this);

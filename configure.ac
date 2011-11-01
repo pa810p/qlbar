@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.61)
-AC_INIT([QLBar],[0.2.1],[pablo@wizard.uek.krakow.pl])
+AC_INIT([QLBar],[0.2.2],[pablo@wizard.uek.krakow.pl])
 AM_INIT_AUTOMAKE([-Wall, -Werror foreign])
 
 AC_CONFIG_SRCDIR([config.h.in])
@@ -36,7 +36,7 @@ AC_FUNC_STAT
 AC_CHECK_FUNCS([regcomp])
 
 AC_ARG_WITH([log4cxx], 
-    [AS_HELP_STRING([--with-log4cxx], [use log4cxx for logging])],
+    [AS_HELP_STRING([--with-log4cxx], [use log4cxx for logging (default enabled)])],
     [],
     [with_log4cxx=no])
 

@@ -15,6 +15,12 @@
 
 #endif
 
+/**
+ * One static fantastic global logger in the application
+ **/
+QLLogger qllogger;
+
+
 QLLogger::QLLogger() {
 #ifdef HAVE_LOG4CXX
     this->logger = Logger::getLogger("qlbar");
@@ -24,7 +30,7 @@ QLLogger::QLLogger() {
 QLLogger::QLLogger(Level level) {
 }
 
-void QLLogger::initialize(Level level, char * logFile) {
+void QLLogger::initialize(Level level, const char * logFile) {
 #ifdef HAVE_LOG4CXX
 
     // creating appender
@@ -48,8 +54,12 @@ void QLLogger::initialize(Level level, char * logFile) {
 
     BasicConfigurator::configure(appender);
     logger->setLevel(getLog4cxxLevel(level));
+#else
+
+    this->logLevel = level;
 #endif
 }
+
 
 #ifdef HAVE_LOG4CXX
 LevelPtr QLLogger::getLog4cxxLevel(Level level) {
@@ -73,61 +83,59 @@ LevelPtr QLLogger::getLog4cxxLevel(Level level) {
 }
 #endif
 
+#define QLLOG(level, slevel, message) \ 
+    if (level >= logLevel) { \
+        fprintf(stderr, slevel); \
+        fprintf(stderr, message); \
+    }\
+
 
 /**
  * This method logs a message with given level
  */
-void QLLogger::log(Level level, char * message) {
+void QLLogger::log(Level level, const char * message) {
 
-    strcat(message, "\n");
-   
     switch (level) {
         case TRACE: 
 #ifdef HAVE_LOG4CXX
             LOG4CXX_TRACE(logger, message);
 #else
-            fprintf(stderr, "TRACE: ");
-            fprintf(stderr, message);            
+            QLLOG(level, "TRACE: ", message);
 #endif
             break;
         case DEBUG:
 #ifdef HAVE_LOG4CXX
             LOG4CXX_DEBUG(logger, message);
 #else
-            fprintf(stderr, "DEBUG: ");
-            fprintf(stderr, message);            
+            QLLOG(level, "DEBUG: ", message);
 #endif
             break;
         case INFO:
 #ifdef HAVE_LOG4CXX
             LOG4CXX_INFO(logger, message);
 #else
-            fprintf(stderr, "INFO: ");
-            fprintf(stderr, message);            
+            QLLOG(level, "INFO: ", message);
 #endif
             break;
         case WARN:
 #ifdef HAVE_LOG4CXX
             LOG4CXX_WARN(logger, message);
 #else
-            fprintf(stderr, "WARN: ");
-            fprintf(stderr, message);            
+            QLLOG(level, "WARN: ", message);
 #endif
             break;
         case ERROR:
 #ifdef HAVE_LOG4CXX
             LOG4CXX_ERROR(logger, message);
 #else
-            fprintf(stderr, "ERROR: ");
-            fprintf(stderr, message);            
+            QLLOG(level, "ERROR: ", message);
 #endif
             break;
         case FATAL:
 #ifdef HAVE_LOG4CXX
             LOG4CXX_FATAL(logger, message);
 #else
-            fprintf(stderr, "FATAL: ");
-            fprintf(stderr, message);            
+            QLLOG(level, "FATAL: ", message);
 #endif
             break;
         default:
@@ -142,15 +150,16 @@ void QLLogger::log(Level level, char * message) {
     char message [MAX_ROW_LENGTH]; \
     va_list list;\
     va_start(list, format); \
-    vsnprintf(message, MAX_ROW_LENGTH-1, format, list); \
-    va_end(list);
+    vsnprintf(message, MAX_ROW_LENGTH-3, format, list); \
+    va_end(list);\
+    strcat(message, "\n");
  
 
 
 /**
  * This method logs a TRACE massage
  */
-void QLLogger::logT(char * format, ...) {
+void QLLogger::logT(const char * format, ...) {
     FORMAT_MESSAGE
  
     log(TRACE, message);
@@ -160,7 +169,7 @@ void QLLogger::logT(char * format, ...) {
 /**
  * This method log a DEBUG message
  */
-void QLLogger::logD(char * format, ...) {
+void QLLogger::logD(const char * format, ...) {
     FORMAT_MESSAGE
 
     log(DEBUG, message);
@@ -169,7 +178,7 @@ void QLLogger::logD(char * format, ...) {
 /**
  * This method logs an INFO message
  */
-void QLLogger::logI(char * format, ...) {
+void QLLogger::logI(const char * format, ...) {
     FORMAT_MESSAGE
 
     log(INFO, message);
@@ -178,7 +187,7 @@ void QLLogger::logI(char * format, ...) {
 /**
  * This method logs a WARNING message
  */
-void QLLogger::logW(char * format, ...) {
+void QLLogger::logW(const char * format, ...) {
     FORMAT_MESSAGE
 
     log(WARN, message);
@@ -187,7 +196,7 @@ void QLLogger::logW(char * format, ...) {
 /**
  * This method logs an ERROR message
  */
-void QLLogger::logE(char * format, ...) {
+void QLLogger::logE(const char * format, ...) {
     FORMAT_MESSAGE
 
     log(ERROR, message);
@@ -196,7 +205,7 @@ void QLLogger::logE(char * format, ...) {
 /**
  * This method logs a FATAL message
  */
-void QLLogger::logF(char * format, ...) {
+void QLLogger::logF(const char * format, ...) {
     FORMAT_MESSAGE
 
     log(FATAL, message);
