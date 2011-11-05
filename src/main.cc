@@ -36,33 +36,35 @@ void Header ()
 void Usage ()
 {
 	printf("Usage: qlbar [OPTIONS]\n");
-	printf("      --bar-color     color of the bar\n");
-	printf("      --bar-height    height of the bar in pixels\n");
-	printf("      --bar-width     width of the bar in pixels\n");
-	printf("  -c, --config        configuration file\n");
-	printf("  -h  --help          this help screen\n");
-	printf("      --hoffset       horizontal toolbar offset from corner defined in --position option\n");
-	printf("  -H, --horizontal    toolbar will be placed horizontaly\n");
-	printf("      --icon-height   height of the icons\n");
-	printf("      --icon-width    width of the icons\n");
-	printf("  -l, --layout        layout, may be horizontal or vertical, same as -H or -V options\n");
-	printf("  -m, --menu          file containing toolbar icon information\n");
-	printf("  -p, --position      position of a toolbar: n, ne, e, se, s, sw, w, nw\n");
-	printf("  -t, --bar-time      time after bar will hide\n");
-	printf("  -L, --log           application will produce default (warn level) logs\n");
-    printf("      --loglevel      the log level: trace, debug, info, warn, error, fatal\n");
-    printf("      --logfile       log filename, default: stdout\n");
-	printf("      --voffset       vertical toolbar offset from corner defined in --position option\n");
-	printf("  -V, --vertical      toolbar will be placed verticaly\n"); 
+	printf("      --bar-color       color of the bar\n");
+	printf("      --bar-height      height of the bar in pixels\n");
+	printf("      --bar-width       width of the bar in pixels\n");
+	printf("  -c, --config          configuration file\n");
+	printf("  -h  --help            this help screen\n");
+	printf("      --hoffset         horizontal toolbar offset from corner defined in --position option\n");
+	printf("  -H, --horizontal      toolbar will be placed horizontaly\n");
+	printf("      --icon-height     height of the icons\n");
+	printf("      --icon-width      width of the icons\n");
+	printf("  -l, --layout          layout, may be horizontal or vertical, same as -H or -V options\n");
+	printf("  -m, --menu            file containing toolbar icon information\n");
+	printf("  -p, --position        position of a toolbar: n, ne, e, se, s, sw, w, nw\n");
+	printf("  -t, --bar-time        time after bar will hide\n");
+	printf("  -L, --log             application will produce default (warn level) logs\n");
+    printf("      --loglevel        the log level: trace, debug, info, warn, error, fatal\n");
+    printf("      --logfile         log filename, default: stderr\n");
+	printf("      --voffset         vertical toolbar offset from corner defined in --position option\n");
+	printf("  -V, --vertical        toolbar will be placed verticaly\n"); 
 //	printf("available from version 0.1.2:\n");
 //	printf("  -b, --balloon       tooltip balloon type: rect, round\n");
-	printf("      --balloon-color background color of tooltip balloon\n");
-	printf("      --font-color    tooltip balloon font color\n");
-	printf("  -f  --font-name     font used on balloon tip\n");
-	printf("  -s  --font-size     tooltip balloon font size\n");
-	printf("  -d  --font-dir      directory that contains TTF fonts\n");
-	printf("  -B  --show-balloon  [true, false] show or not baloon, default balloon is shown\n");
-    printf("  -D  --daemonize     qlbar will run in the background\n");
+	printf("      --balloon-color   background color of tooltip balloon\n");
+	printf("      --font-color      tooltip balloon font color\n");
+	printf("  -f  --font-name       font used on balloon tip\n");
+	printf("  -s  --font-size       tooltip balloon font size\n");
+	printf("  -d  --font-dir        directory that contains TTF fonts\n");
+	printf("  -B  --show-balloon    [true, false] show or not baloon, default balloon is shown\n");
+    printf("  -D  --daemonize       qlbar will run in the background\n");
+    printf("      --double          [true, false] double click to execute command\n");
+    printf("  -i  --click-interval  interval between button clicks [msec]\n");
 	printf("\n");
 
 }
@@ -103,6 +105,8 @@ int main (int argc, char ** argv)
         {"log", 0, 0, 'L'},
         {"loglevel", 1, 0, 0},
         {"logfile", 1, 0, 0},
+        {"double", 1, 0, 0,},
+        {"click-interval", 1, 0, 0},
 	};
 
 	// first parse options
@@ -114,7 +118,7 @@ int main (int argc, char ** argv)
 	int i=0;
 	int option_index;
 
-	while ((i=getopt_long(argc,argv, "DhHVLl:m:c:p:t:f:s:d:B:", long_options, &option_index ))!=-1)
+	while ((i=getopt_long(argc,argv, "DhHVLl:m:c:p:t:f:s:d:B:i:", long_options, &option_index ))!=-1)
 	{
 		switch(i)
 		{
@@ -185,6 +189,10 @@ int main (int argc, char ** argv)
                 break;
             case 'L':
                 if (cfg.Parse("log", optarg, true) == -1)
+                    return -1;
+                break;
+            case 'i':
+                if (cfg.Parse("click-interval", optarg, true) == -1)
                     return -1;
                 break;
 			case 0:
@@ -266,12 +274,13 @@ int main (int argc, char ** argv)
 
 
 	// post-analyze config
-	if (! cfg.Validate(true) )
+	if (! cfg.Validate() )
 		return 0;
     
 	QLBar qlbar;
 	qlbar.SetConfig(&cfg);
 
+    qllogger.logT("double-click: %d", cfg.getDoubleClick());
 
     char * logString = new char [128];
 

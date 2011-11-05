@@ -1,16 +1,63 @@
 
+# specifies icon width
+# default is 32
 icon-width = 32
+
+# specifies icon height
+# default is 32
 icon-height = 32
+
+# specifies bar width
+# this may be eithe 'default' that is computed by qlbar, 
+# or integer value
 bar-width = default
+
+# specifies bar height
+# default is 1 pixel
 bar-height = 1
-bar-color = 80
+
+# specifies bar color
+# long integer, use RGB notation in hex: 0xRRGGBB
+bar-color = 0x000080
+
+# specifies bar position (justification):
+# [n, ne, e, se, s, sw, w, nw]
 position = n
+
+# specifies the time in seconds after icons will hide
 bar-time = 1
+
+# specifies layout of the icons
+# [horizontal, vertical]
 layout = horizontal
+
+# specifies font name
 font-name = verdana
+
+# specifies font size
 font-size = 8
+
+# specifies directory with fonts
 font-dir = /usr/X11/lib/X11/fonts/TTF
+
+# specifies font color
+# long integer, use RGB notation in hex: 0xRRGGBB
 font-color = 0x000055
+
+# specifies background color of the baloon
+# long integer, use RGB notation in hex: 0xRRGGBB
 balloon-color = 0xbbbb44
+
+# specifies if baloon with application name should be shown
 show-balloon = true
+
+# specifies if use either double click or single click to execute commands
+# default single click is used
+# [true, false]
+double = false
+
+# specifies time interval in milliseconds between clicks in double click mode
+# default is 250 ms
+click-interval = 250
+
 

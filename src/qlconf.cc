@@ -37,6 +37,8 @@ QLConf::QLConf()
     b_daemonize = false;
     b_logging = false;
     b_logLevel = false;
+    b_double_click_interval = false;
+    b_double_click = false;
 
 	icon_width = 32;
 	icon_height = 32;
@@ -58,6 +60,8 @@ QLConf::QLConf()
     logging = true;
     logLevel = QLLogger::ERROR;
     logFile = NULL;
+    double_click_interval = 500;
+    double_click = false;
 }
 
 /**
@@ -133,6 +137,14 @@ void QLConf::Set(char** dst, const char* src, bool * state, const bool ov)
 	}
 }
 
+
+/**
+ * This method returns true if given string argument was "true"
+ * else returns false
+ */
+bool QLConf::parseTrueFalse(const char* value) {
+    return !comp(value, "true");
+}
 
 
 /**
@@ -233,10 +245,7 @@ int QLConf::Parse(const char * optname, const char * value, const bool ov)
 		}
 	}
 	else if (!comp(optname, "show-balloon")){
-		if (!comp(value, "true"))
-			SetT(&show_balloon, true, &b_show_balloon, ov);
-		else
-			SetT(&show_balloon, false, &b_show_balloon, ov);
+		SetT(&show_balloon, parseTrueFalse(value), &b_show_balloon, ov);
 	}
     else if (!comp(optname, "daemonize")){
         SetT(&daemonize, true, &b_daemonize, ov);
@@ -250,6 +259,12 @@ int QLConf::Parse(const char * optname, const char * value, const bool ov)
     else if (!comp(optname, "logfile")) {
         Set(&logFile, value, &b_logFile, ov);
     }
+    else if (!comp(optname, "double")) {
+        SetT(&double_click, parseTrueFalse(value), &b_double_click, ov);
+    }
+    else if (!comp(optname, "click-interval")) {
+        SetT(&double_click_interval, atol(value), &b_double_click_interval, ov);
+    }
 	else
 	{
 		fprintf(stderr, "Unknown option: %s = %s\n", optname, value);
@@ -259,6 +274,11 @@ int QLConf::Parse(const char * optname, const char * value, const bool ov)
 	return 0;
 }
 
+/**
+ * This method is used to translate logging level string from
+ * configuration or a command line execution into logging
+ * level enum
+ */
 QLLogger::Level QLConf::parseLogLevel(const char * strLogLevel) {
     QLLogger::Level level = QLLogger::TRACE;
 
@@ -311,14 +331,14 @@ int QLConf::ReadMenuConfig( const char * filename )
 
 	if(regcomp(&rexec,pattern, REG_EXTENDED ) != 0)
 	{
-		fprintf(stderr, "error compile regex");
+		fprintf(stderr, "error compile regex during parsing menu config file");
 		return -1;
 	}
 
 	ifstream cfg;
 	cfg.open(filename, ifstream::in);
 	if (!cfg){
-		fprintf(stderr, "cannot open config file: %s\n", filename);
+		fprintf(stderr, "cannot open menu config file: %s\n", filename);
 		return -1;
 	}
 
@@ -375,7 +395,7 @@ int QLConf::ReadConfigFile(const char * filename)
 	const char * pattern = "^([a-zA-Z-]+)[[:blank:]]*=[[:blank:]]([/a-zA-Z0-9-]*)";
 
 	if(regcomp(&rexec,pattern, REG_EXTENDED ) != 0) {
-		fprintf(stderr, "error compile regex");
+		fprintf(stderr, "error compile regex during parsing config");
 		return -1;
 	}  
 
@@ -445,27 +465,12 @@ int QLConf::GetBarHeight(bool asis) const
 }
 
 
-/**
- * Function puts string given by parameter onto standard error when
- * second parameter is true
- * @param msg message string
- * @param verbose if true message is displayed on stderr, nothing happen else
- */
-void QLConf::Error(const char * msg, const bool verbose) const
-{
-    qllogger.logE(msg);
-    
-	if (verbose)
-		fprintf(stderr, msg);
-}
-
 
 /**
  * Function validates if config's data is correct.
- * @param verbose boolean true if error information should be displayed on stderr
  * @return bool true if config's data is valid, false on invalid
  */
-bool QLConf::Validate(const bool verbose) 
+bool QLConf::Validate() 
 {
     qllogger.logT("Validating...");
 
@@ -476,14 +481,14 @@ bool QLConf::Validate(const bool verbose)
 				case BP_EAST:
 				case BP_WEST:
 					valid = false;
-					Error("Bar position EAST or WEST cannot be set with layout HORIZONTAL\n", verbose);
+					qllogger.logW("Bar position EAST or WEST cannot be set with layout HORIZONTAL");
 					break;
 				default:
 					break;
 			}
 			if (this->GetVOffset() != 0){
 				valid = false;
-			 	Error("Vertical offset cannot be set with layout HORIZONTAL\n", verbose);
+			 	qllogger.logW("Vertical offset cannot be set with layout HORIZONTAL");
 			}
 			break;
 		case BAR_VERTICAL:
@@ -491,36 +496,36 @@ bool QLConf::Validate(const bool verbose)
 				case BP_NORTH:
 				case BP_SOUTH:
 					valid = false;
-					Error("Bar position NORTH or SOUTH cannot be set with layout VERTICAL\n", verbose);
+					qllogger.logW("Bar position NORTH or SOUTH cannot be set with layout VERTICAL");
 					break;
 				default:
 					break;
 			}
 			if (this->GetHOffset() != 0){
 				valid = false;
-				Error("Horizontal offset cannot be set with layout VERTICAL\n", verbose);
+				qllogger.logW("Horizontal offset cannot be set with layout VERTICAL");
 			}
 		break;
 	}
 
 	if (this->GetHOffset() < 0){
 		valid = false;
-		Error("Horizontal offset cannot be lower than 0\n", verbose);
+		qllogger.logW("Horizontal offset cannot be lower than 0");
 	}
 	
 	if (this->GetVOffset() < 0){
 		valid = false;
-		Error("Vertical offset cannot be lower than 0\n", verbose);
+		qllogger.logW("Vertical offset cannot be lower than 0");
 	}
 
 	if (this->GetShowBalloon() == true){
 		if (NULL != this->GetFontDir() && strlen(this->GetFontDir()) == 0){
-			Error("Font directory path length. Balloon disabled\n", verbose);
+			qllogger.logW("Font directory path length. Balloon disabled");
 			this->show_balloon = false;
 		}
 
 		if (NULL != this->GetFontName() && strlen(this->GetFontName()) == 0){
-			Error("Font name is empty. Balloon disabled\n", verbose);
+			qllogger.logW("Font name is empty. Balloon disabled");
 			this->show_balloon = false;
 		}
 	}

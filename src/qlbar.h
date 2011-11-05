@@ -51,10 +51,13 @@ class QLBar {
 
 		void ComputeXY(int &x, int &y, int &ic_x, int &ic_y, int &ttv_x, int & ttv_y) ;
 
-        struct timeval tv;
-
-
         bool shouldHideBar;
+
+        bool firstClick;
+        long clickTime;
+
+        void processClick( const XEvent &);
+
 	public:
 		QLBar ();
 		~QLBar ();

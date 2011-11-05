@@ -15,6 +15,7 @@ QLBar::QLBar ()
 {
     qllogger.logT("QLBar creation: [%x]", this);
     shouldHideBar = false;
+    firstClick = false;
 }
 
 /**
@@ -202,6 +203,13 @@ void QLBar::prepareItems()
 }
 
 
+/**
+ * This method handles event that has come from xlib layer
+ *
+ * @param ev event to handle
+ * @param tv time to next event to be generate
+ * @see select (2) manual for tv description
+ */
 void QLBar::handleEvent(const XEvent & ev) {
 	qllogger.logT("handleEvent");
 
@@ -219,6 +227,7 @@ void QLBar::handleEvent(const XEvent & ev) {
 
 			//XClearWindow(display, window);
 
+            firstClick = false;
 			break;
 		}
 		case LeaveNotify:
@@ -235,7 +244,8 @@ void QLBar::handleEvent(const XEvent & ev) {
                 else {
 	   		    hideAllBalloons();
                     }
-				break;
+            firstClick = false;
+            break;
         }
 		case EnterNotify:
 
@@ -266,26 +276,60 @@ void QLBar::handleEvent(const XEvent & ev) {
                 }
 		    }
             qllogger.logT("End of EnterNotify event");
-
+            
+            firstClick = false;
 			break;
 		case ButtonPress:
 		{
-            qllogger.logD("Event: buttonPress ");
-
-			QLWidget * item = findWidget(ev.xcrossing.window);
-			if (item!=NULL) {
-		        qllogger.logT("Found widget [%s]", static_cast<QLItem*>(item)->GetName());
-				static_cast<QLItem*>(item)->Execute();
+            qllogger.logD("Event: buttonPress: %ld", ev.xbutton.time);
+            if (_pcfg->getDoubleClick() == true) {
+                if (false == firstClick)    {
+                    qllogger.logD("Event: buttonPress: firstClick=true"); 
+                    firstClick = true;
+                    clickTime = ev.xbutton.time;
+                }
+                else {
+                    // counting difference between clicks
+                    long diff = ev.xbutton.time - clickTime;
+                    qllogger.logD("Event: buttonPress: diff=%ld (%ld - %ld)", diff, ev.xbutton.time, clickTime);
+                    if (diff < _pcfg->getDoubleClickInterval()) {
+                        processClick(ev);
+                    }
+                    firstClick = false;
+                }
             }
             else {
-                qllogger.logW("Widget not found");
-            }
+                processClick(ev);
+            } 
 	    }
 		break;
-			default:
-                qllogger.logT("Unrecognized event: %d", ev.type);
-				break;
+        case ButtonRelease:
+            qllogger.logD("Event: ButtonRelease");
+            break;
+		default:
+            qllogger.logT("Unrecognized event: %d", ev.type);
+            firstClick = false;
+		    break;
 		}
+}
+
+
+/**
+ * This method is used to execute application under clicked icon.
+ *
+ * @param ev reference to an event that occured
+ */
+void QLBar::processClick( const XEvent &ev ) {
+
+    QLWidget * item = findWidget(ev.xcrossing.window);
+
+    if (NULL != item) {
+        qllogger.logT("Found widget [%s]", static_cast<QLItem*>(item)->GetName());
+        static_cast<QLItem*>(item)->Execute();
+    }
+    else {
+        qllogger.logW("Widget not found");
+    }
 }
 
 
@@ -306,6 +350,8 @@ int QLBar::Run()
 
 	XEvent ev;
 
+    struct timeval tv;
+
 	while (1) {
     
         FD_ZERO(&in_fds);
@@ -316,11 +362,12 @@ int QLBar::Run()
 
         if (select(x11_fd+1, &in_fds, 0, 0, &tv)) {
         }
-        else {
+        else { // time event occured
             if (true == shouldHideBar) {
                 hideAllItems();
                 shouldHideBar = false;
             }
+            firstClick = false;
         }
 
         qllogger.logD("Event: %d: %d", tv.tv_sec, tv.tv_usec);
@@ -329,7 +376,6 @@ int QLBar::Run()
        		XNextEvent(display, &ev);
             handleEvent(ev);
         }
-
 
 	};
     return 0;

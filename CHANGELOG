@@ -1,12 +1,15 @@
 Tue, 1 Nov 2011, 11:37:32 CET
 version 0.2.2
 
+- feature: support for double-click to execute a command under icon
 - enhancement: logging level support added to default logging 
   facility when log4cxx is not used
+- documentation: added help to config file, manual updated
 - bugfix: --log switch not needing parameter any more
 - cosmetic fix: suppress warnings from Imlib2 when font was 
   not found
 - removed deprecation warnings
+- removed --verbose option
 
 -----------------------------
 Fri Mar 25 21:02:59 CET 2011

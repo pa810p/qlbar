@@ -84,9 +84,19 @@ class QLConf {
         char * logFile;
         bool b_logFile;
 
+        long double_click_interval;
+        bool b_double_click_interval;
+
+        bool double_click;
+        bool b_double_click;
+
+
 		vector <QLItem *> items;
         
         QLLogger::Level parseLogLevel(const char *);
+
+        bool parseTrueFalse(const char* );
+
 
 	protected:
 		int comp (const char *, const char *) const;
@@ -105,8 +115,7 @@ class QLConf {
 		int		ReadMenuConfig( const char * filename);
 		int		ReadConfigFile( const char * filename);
 	
-		void	Error(const char * msg, const bool verbose = true) const;
-		bool	Validate(const bool verbose); 
+		bool	Validate(); 
 
 		// getters
 		int		GetIconWidth() const { return icon_width; }
@@ -130,6 +139,9 @@ class QLConf {
         bool    GetDaemonize() const { return daemonize; };
         QLLogger::Level     GetLogLevel() const { return logLevel; };
         char *  GetLogFile() const { return logFile; };
+        long    getDoubleClickInterval() const { return double_click_interval; };
+        bool    getDoubleClick() const { return double_click; };
+        
 
 		vector<QLItem*> * GetItems() { return &items; }
 

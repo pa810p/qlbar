@@ -1,6 +1,6 @@
-.TH QLBAR 8 2011-03-15 "QLBar Cool ToolBar"
+.TH QLBAR 8 2011-11-05 "QLBar Cool ToolBar"
 .SH NAME 
-qlbar-0.2.0 \- Cool Toolbar for X11
+qlbar-0.2.2 \- Cool Toolbar for X11
 .SH SYNOPSIS
 .B qlbar
 [-hHVv] [-c config file] [-m menu file] [--bar-color color] 
@@ -9,6 +9,7 @@ qlbar-0.2.0 \- Cool Toolbar for X11
 [--bar-height height] [--bar-width width] [-t seconds] 
 [--icon-width widh] [--icon-height height] [--voffset pixels]
 [--hoffset pixels] [-l layout] [--daemonize]
+[--double true/false] [--click-interval msec]
 .br
 .SH DESCRIPTION
 .B qlbar 
@@ -31,22 +32,28 @@ width of a bar in pixels, default is computed as: icon width multiply icon count
 .TP
 .B \-t \fRor\fP \-\-bar\-time
 delay in seconds after that toolbar will hide
+.TP
+.B \-i \fRor\fP --click-interval
+interval (in milliseconds) between button click in double click mode 
 .TP 
 .B \-c \fRor\fP \-\-config
 config file
 .br
 Default $HOME/.qlbar/config is used
 .TP
+.B \-\-double
+true or false use of double click to execute command
+.TP
 .B \-\-font\-color
 tooltip balloon font color
 .TP
-.B \-f \fRor\fP \-\-font\-dir
+.B \-d \fRor\fP \-\-font\-dir
 path to directory that contains TTF fonts
 .TP
 .B \-f \fRor\fP \-\-font\-name
 font used on balloon tip
 .TP
-.B \-f \fRor\fP \-\-font\-size
+.B \-s \fRor\fP \-\-font\-size
 tooltip balloon font size
 .TP
 .B \-D \fRor\fP \-\-daemonize
@@ -124,7 +131,7 @@ moves mouse over toolbar item
 .br
 - right click context menu over every item with extra features (configure)
 .SH BUGS REPORTING
-pablo@wizard.ae.krakow.pl
+pablo@wizard.uek.krakow.pl
 .br
 .SH COPYRIGHT
 GPL.

@@ -3,13 +3,13 @@ Content-type: text/html
 <HTML><HEAD><TITLE>Manpage of QLBAR</TITLE>
 </HEAD><BODY>
 <H1>QLBAR</H1>
-Section: Maintenance Commands (8)<BR>Updated: 2011-03-15<BR><A HREF="#index">Index</A>
+Section: Maintenance Commands (8)<BR>Updated: 2011-11-05<BR><A HREF="#index">Index</A>
 <A HREF="http://localhost/cgi-bin/man/man2html">Return to Main Contents</A><HR>
 
 <A NAME="lbAB">&nbsp;</A>
 <H2>NAME </H2>
 
-qlbar-0.2.0 - Cool Toolbar for X11
+qlbar-0.2.2 - Cool Toolbar for X11
 <A NAME="lbAC">&nbsp;</A>
 <H2>SYNOPSIS</H2>
 
@@ -21,6 +21,7 @@ qlbar-0.2.0 - Cool Toolbar for X11
 [--bar-height height] [--bar-width width] [-t seconds] 
 [--icon-width widh] [--icon-height height] [--voffset pixels]
 [--hoffset pixels] [-l layout] [--daemonize]
+[--double true/false] [--click-interval msec]
 <BR>
 
 <A NAME="lbAD">&nbsp;</A>
@@ -55,6 +56,10 @@ width of a bar in pixels, default is computed as: icon width multiply icon count
 
 <DD>
 delay in seconds after that toolbar will hide
+<DT><B>-i </B>or --click-interval
+
+<DD>
+interval (in milliseconds) between button click in double click mode 
 <DT><B>-c </B>or --config
 
 <DD>
@@ -62,11 +67,15 @@ config file
 <BR>
 
 Default $HOME/.qlbar/config is used
+<DT><B>--double</B>
+
+<DD>
+true or false use of double click to execute command
 <DT><B>--font-color</B>
 
 <DD>
 tooltip balloon font color
-<DT><B>-f </B>or --font-dir
+<DT><B>-d </B>or --font-dir
 
 <DD>
 path to directory that contains TTF fonts
@@ -74,7 +83,7 @@ path to directory that contains TTF fonts
 
 <DD>
 font used on balloon tip
-<DT><B>-f </B>or --font-size
+<DT><B>-s </B>or --font-size
 
 <DD>
 tooltip balloon font size
@@ -187,7 +196,7 @@ moves mouse over toolbar item
 <A NAME="lbAG">&nbsp;</A>
 <H2>BUGS REPORTING</H2>
 
-<A HREF="mailto:pablo@wizard.ae.krakow.pl">pablo@wizard.ae.krakow.pl</A>
+<A HREF="mailto:pablo@wizard.uek.krakow.pl">pablo@wizard.uek.krakow.pl</A>
 <BR>
 
 <A NAME="lbAH">&nbsp;</A>
@@ -222,6 +231,6 @@ homepage of this project is : <A HREF="http://prokop.uek.krakow.pl/projects/qlba
 This document was created by
 <A HREF="http://localhost/cgi-bin/man/man2html">man2html</A>,
 using the manual pages.<BR>
-Time: 20:28:15 GMT, March 16, 2011
+Time: 12:21:20 GMT, November 05, 2011
 </BODY>
 </HTML>
