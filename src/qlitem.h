@@ -24,6 +24,8 @@ class QLItem : public QLWidget {
 
 		QLWidget * _pTip;
 
+        Imlib_Image origImage;
+
 	public:
 		QLItem ( char * ip, char * ep, char * fn);
 		virtual ~QLItem ();

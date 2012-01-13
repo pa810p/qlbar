@@ -40,6 +40,9 @@ QLItem::QLItem ( char * ip, char * ep, char * fn)
 	strncpy(_pName, fn, iip);
 	_pName[iip] = '\0';
 
+    //TODO:
+    // move initialization to further stage 
+    // or display creation
 	Init();
 	_pTip = NULL;
 
@@ -81,15 +84,15 @@ void QLItem::Init()
 		createDefIconPath(_pIconPath);
 		}
 
-	Imlib_Image tmp_im;
-	tmp_im = imlib_load_image(_pIconPath);
-	if (tmp_im == NULL) {
-		fprintf(stderr, "Could not load image: %s\nUsing default\n", _pIconPath);
+
+	origImage = imlib_load_image(_pIconPath);
+	if (origImage == NULL) {
+		qllogger.logW("Could not load image: %s\nUsing default\n", _pIconPath);
 		char * dst = NULL;
 		createDefIconPath(dst);
-		tmp_im = imlib_load_image(dst);
-		if (tmp_im == NULL) {
-			fprintf(stderr, "Could load default icon file: %s\n", dst);
+		origImage = imlib_load_image(dst);
+		if (origImage == NULL) {
+			qllogger.logW("Could load default icon file: %s\n", dst);
 			failed = true;
 		}
 
@@ -100,16 +103,11 @@ void QLItem::Init()
 			
 	}
 
+    //TODO:
+    //this should not be done before CreateUI
+    //or at least _width/_height variables initialization
 	if (failed == true) // failed
 		return;
-
-	imlib_context_set_image(tmp_im);
-	int width = imlib_image_get_width();
-	int height = imlib_image_get_height();
-
-	im = imlib_create_cropped_scaled_image(0,0,width,height,_width,_height);
-	imlib_free_image();
-
 }
 
 /**
@@ -188,6 +186,21 @@ bool QLItem::CreateUI (Display * display, Window window,
 	_y = y;
 	_width = w;
 	_height = h;
+
+
+	imlib_context_set_image(origImage);
+	int width = imlib_image_get_width();
+	int height = imlib_image_get_height();
+
+	im = imlib_create_cropped_scaled_image(0,0,width,height,_width,_height);
+
+    imlib_context_set_image(im);
+    qllogger.logT("Init image size after scale: %d, %d, (%d, %d)", imlib_image_get_width(), imlib_image_get_height(), width, height);
+    imlib_context_set_image(origImage);
+
+    origImage = imlib_clone_image();
+	imlib_free_image();
+
 
 	_display = display;
 
@@ -305,13 +318,20 @@ void QLItem::Select()
 
     imlib_context_set_image(im);
     imlib_context_set_color(255,255,255,50);
-    imlib_image_fill_rectangle(0,0, _width*2, _height*2);
-    imlib_render_image_on_drawable_at_size(0,0,_width*2,_height*2);
+    imlib_image_fill_rectangle(0,0, imlib_image_get_width(), imlib_image_get_height());
+    imlib_render_image_on_drawable_at_size(0,0,imlib_image_get_width(),imlib_image_get_height());
 
+    int width = imlib_image_get_width();
+    int height = imlib_image_get_height();
+    qllogger.logT("QLItem select image size: %d, %d", width, height);
 }
 
 void QLItem::UnSelect()
 {
+	qllogger.logT("QLItem Unselect : %d, %d, %d, %d", _x, _y, _width, _height);
+
+    imlib_context_set_image(origImage);
+    imlib_render_image_on_drawable_at_size(0,0,_width,_height);
 }
 
 char * QLItem::GetName() const

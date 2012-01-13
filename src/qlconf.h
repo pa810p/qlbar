@@ -112,7 +112,7 @@ class QLConf {
 
 		int		Parse( const char * , const char *, const bool override = false);
 
-		int		ReadMenuConfig( const char * filename);
+		int		ReadMenuFile( const char * filename);
 		int		ReadConfigFile( const char * filename);
 	
 		bool	Validate(); 

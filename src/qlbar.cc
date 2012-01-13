@@ -16,6 +16,9 @@ QLBar::QLBar ()
     qllogger.logT("QLBar creation: [%x]", this);
     shouldHideBar = false;
     firstClick = false;
+
+    timeEventUsec = 0;
+    timeEventSec = 1;
 }
 
 /**
@@ -237,7 +240,7 @@ void QLBar::handleEvent(const XEvent & ev) {
         		qllogger.logT("Event: leave");
 				QLWidget * item = findWidget(ev.xcrossing.window); // obtain leaving widget
 				if (item != NULL){
-         //               static_cast<QLItem*>(item)->UnSelect();
+//                    static_cast<QLItem*>(item)->UnSelect();
                     qllogger.logT("hide balloon() [%s]", ((QLItem*)item)->GetName() );
 					static_cast<QLItem*>(item)->HideBalloon();
                 }
@@ -256,7 +259,7 @@ void QLBar::handleEvent(const XEvent & ev) {
 				hideAllBalloons();
 
 				//TODO: show animated
-//				ScaleItems(_icon_height);
+//				//ScaleItems(_icon_height);
 				showAllItems();
 			}
 			else //enter to the icon
@@ -268,7 +271,7 @@ void QLBar::handleEvent(const XEvent & ev) {
 			        qllogger.logT("Found widget [%s]", static_cast<QLItem*>(item)->GetName());
 					//static_cast<QLItem*>(item)->ShowBalloon(v.xcrossing.x + 30,ev.xcrossing.y + 30);
 //					static_cast<QLItem*>(item)->Select();
-//                  static_cast<QLItem*>(item)->Paint();
+                    static_cast<QLItem*>(item)->Paint();
                     static_cast<QLItem*>(item)->ShowBalloon(30,30);
                 }
                 else {
@@ -357,8 +360,8 @@ int QLBar::Run()
         FD_ZERO(&in_fds);
         FD_SET(x11_fd, &in_fds);
 
-        tv.tv_usec = 0;
-        tv.tv_sec = 1;
+        tv.tv_usec = timeEventUsec;
+        tv.tv_sec = timeEventSec;
 
         if (select(x11_fd+1, &in_fds, 0, 0, &tv)) {
         }
@@ -650,18 +653,18 @@ int QLBar::GetBarTime() const
 
 void QLBar::SetConfig(QLConf * cfg)
 {
-	if (cfg == NULL)
-		return;
-
-	_pcfg = cfg;
-	// and create valid items lise
-	vector<QLItem*> * pV = cfg->GetItems();
-	vector<QLItem*>::iterator it = pV->begin();
-	for (; it!=pV->end(); it++){
-		if (!(*it)->isFailed()){ // destroy unnessesary icons
-			AddItem(*it);
-		}
-	}
+	if (cfg == NULL) {}
+    else {
+        _pcfg = cfg;
+        // and create valid items lise
+        vector<QLItem*> * pV = cfg->GetItems();
+        vector<QLItem*>::iterator it = pV->begin();
+        for (; it!=pV->end(); it++){
+            if (!(*it)->isFailed()){ // destroy unnessesary icons
+                AddItem(*it);
+            }
+        }
+    }
 }
 
 

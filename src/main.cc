@@ -71,6 +71,36 @@ void Usage ()
 
 
 
+int loadConfig(QLConf* cfg, const char* config_file) {
+    return cfg->ReadConfigFile(config_file);
+}
+
+int loadMenu(QLConf* cfg, const char* config_file) {
+    return cfg->ReadMenuFile(config_file);
+}
+
+int loadAlterConfig(QLConf* cfg, int (*loader) (QLConf*, const char*), const char * directory, const char * filename)   {
+
+    // prepare path to default config file
+    int dir_len = strlen(directory);
+    int file_len = strlen(filename);
+    char * config_file = new char [ dir_len + file_len +1 ];
+    strncpy(config_file, directory, dir_len);
+    config_file[dir_len] = 0x0;
+    strncat(config_file, filename, file_len );
+    config_file[dir_len+file_len] = 0x0;
+
+    if (loader(cfg, config_file) == -1) {
+        delete [] config_file;
+        config_file = NULL;
+        return -1;
+    }
+    return 0;
+}
+
+
+
+
 int main (int argc, char ** argv)
 {
 
@@ -223,28 +253,31 @@ int main (int argc, char ** argv)
 	int home_len = strlen(home);
 	int qlbdir_len = strlen(QLB_DEF_DIR);
 
-	// main config
-	if (config_file == NULL) {
-		int len = strlen (def_config);
-		config_file = new char [ home_len + qlbdir_len + len+2 ];
-		strncpy (config_file, home, home_len + 1);
-		strncat (config_file, "/", 1);
-		strncat (config_file, QLB_DEF_DIR, qlbdir_len + 1);
-		strncat (config_file, def_config, len+1);
-	}
+    if (NULL != config_file) {
+        // got config as parameter
+        if (cfg.ReadConfigFile(config_file) == -1)  {
+             delete [] config_file;
+             config_file = NULL;
+             return -1;
+        }
+    }
 
+    // load alternate configs
+    config_file = new char [ home_len + 1 + qlbdir_len ];
+    strncpy (config_file, home, home_len + 1);
+    strncat (config_file, "/", 1);
+    strncat (config_file, QLB_DEF_DIR, qlbdir_len + 1);
 
-	if (config_file != NULL) {
-		if (cfg.ReadConfigFile(config_file) == -1){
-			delete [] config_file; // config filename is no longer needed
-			config_file = NULL;
-			fprintf(stderr, "Cannot read config file. Abort\n");
-			return -1;
-		}
-		delete [] config_file;
-		config_file = NULL;
-	}
-
+    if (loadAlterConfig(&cfg, loadConfig, config_file, QLB_DEF_CONFIG) == -1) { // ~/ failed
+        delete [] config_file;
+        config_file = NULL;
+        if (loadAlterConfig(&cfg, loadConfig, QLB_DEF_USR_LOCAL_ETC_QLBAR, QLB_DEF_CONFIG) == -1) {
+            if (loadAlterConfig(&cfg, loadConfig, QLB_DEF_ETC_QLBAR, QLB_DEF_CONFIG) == -1) {
+                fprintf(stderr, "Could not load configs. What you need is a miracle. Bye.\n");
+                return -1;
+            }
+        }
+    }
     // initializing logger
 
     qllogger.initialize(cfg.GetLogLevel(), cfg.GetLogFile());
@@ -252,26 +285,30 @@ int main (int argc, char ** argv)
 
 
 	// menu config
-	if (menu_config_file == NULL) {
-		int len = strlen (def_menu);
-		menu_config_file = new char [ home_len + qlbdir_len + len + 2 ];
-		strncpy (menu_config_file, home, home_len + 1);
-		strncat (menu_config_file, "/", 1);
-		strncat (menu_config_file, QLB_DEF_DIR, qlbdir_len + 1);
-		strncat (menu_config_file, def_menu, len+1);
-	}
+    if (NULL != menu_config_file){
+        if (cfg.ReadMenuFile(menu_config_file) == -1) {
+            delete [] menu_config_file;
+            menu_config_file = NULL;
+            return -1;
+        }
+    }
+	
+    int len = strlen (def_menu);
+	menu_config_file = new char [ home_len + 1 + qlbdir_len ];
+	strncpy (menu_config_file, home, home_len + 1);
+	strncat (menu_config_file, "/", 1);
+	strncat (menu_config_file, QLB_DEF_DIR, qlbdir_len + 1);
 
-	if (menu_config_file != NULL){
-		if (cfg.ReadMenuConfig(menu_config_file) == -1){
-			delete [] menu_config_file; // config filename is no longer needed
-			menu_config_file = NULL;
-            qllogger.logE("Cannot read menu config file. Abort!");
-			return -1;
+    if (loadAlterConfig(&cfg, loadMenu, menu_config_file, QLB_DEF_MENU) == -1){
+        delete [] menu_config_file;
+        menu_config_file = NULL;
+        if (loadAlterConfig(&cfg, loadMenu, QLB_DEF_USR_LOCAL_ETC_QLBAR, QLB_DEF_MENU) == -1) {
+            if (loadAlterConfig(&cfg, loadMenu, QLB_DEF_ETC_QLBAR, QLB_DEF_MENU) == -1) {
+                qllogger.logE("Cannot read menu config file. What you need is a miracle. Bye!");
+                return -1;
+            }
 		}
-		delete [] menu_config_file;
-		menu_config_file = NULL;
 	}
-
 
 	// post-analyze config
 	if (! cfg.Validate() )
@@ -279,10 +316,6 @@ int main (int argc, char ** argv)
     
 	QLBar qlbar;
 	qlbar.SetConfig(&cfg);
-
-    qllogger.logT("double-click: %d", cfg.getDoubleClick());
-
-    char * logString = new char [128];
 
 	qlbar.Prepare();
 	qlbar.Run();

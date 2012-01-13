@@ -318,9 +318,9 @@ QLLogger::Level QLConf::parseLogLevel(const char * strLogLevel) {
  * @param filename name of file to read
  * @return 0 on success, -1 on failure
  */
-int QLConf::ReadMenuConfig( const char * filename )
+int QLConf::ReadMenuFile( const char * filename )
 {
-
+    fprintf(stderr, "load: %s\n", filename);
 	char buffer [1024];
 
 	regex_t rexec;

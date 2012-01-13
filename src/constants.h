@@ -3,7 +3,6 @@
 
 //#define DEBUG
 
-// #define QLBAR_VERSION	"0.1.4"
 #define QLBAR_AUTHOR	"Pawel Prokop"
 
 
@@ -36,5 +35,8 @@
 #define QLB_DEF_ICON	"qlbar.png"
 #define QLB_DEF_CONFIG 	"config"
 #define QLB_DEF_MENU	"menu"
+
+#define QLB_DEF_ETC_QLBAR               "/etc/qlbar/"
+#define QLB_DEF_USR_LOCAL_ETC_QLBAR     "/usr/local/etc/qlbar/"
 
 #endif

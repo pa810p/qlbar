@@ -58,6 +58,9 @@ class QLBar {
 
         void processClick( const XEvent &);
 
+        unsigned int timeEventUsec;
+        unsigned int timeEventSec;
+
 	public:
 		QLBar ();
 		~QLBar ();
