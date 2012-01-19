@@ -83,11 +83,11 @@ LevelPtr QLLogger::getLog4cxxLevel(Level level) {
 }
 #endif
 
-#define QLLOG(level, slevel, message) \ 
+#define QLLOG(level, slevel, message) \
     if (level >= logLevel) { \
         fprintf(stderr, slevel); \
         fprintf(stderr, message); \
-    }\
+    }
 
 
 /**
