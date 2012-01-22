@@ -10,11 +10,10 @@
 # </path/to/icon>  - icon that will be displayed on the bar (.xpm, .png)
 #
 
-[exec] (aterm) {aterm -bg black -fg white -g 130x50 -fn -adobe-courier-medium-r-normal--12-120-75-75-m-70-iso8859-2} </usr/local/share/pixmaps/xterm-linux.xpm>
-[exec] (firefox) {firefox} </usr/local/share/pixmaps/firefox.xpm>
-[exec]   (gimp) {gimp} </usr/local/share/pixmaps/wilber.xpm>
-[exec]   (acroread) {acroread} </usr/local/share/pixmaps/AcrobatReader.xpm>
-[exec]   (gnumeric) {gnumeric} </usr/local/share/pixmaps/gnome-gnumeric.xpm>
-[exec] (Eclipse) {/usr/local/eclipse/eclipse} </usr/local/share/pixmaps/eclipse.xpm>
-[exec] (NetBeans) {/usr/local/netbeans-5.5/bin/netbeans} </usr/local/share/pixmaps/netbeans.xpm>
+[exec] (xterm) {xterm} </usr/share/pixmaps/terminal.xpm>
+[exec] (firefox) {firefox} </usr/share/pixmaps/Firefox.png>
+[exec] (xv) {xv} </usr/share/pixmaps/xv.xpm>
+[exec] (gimp) {gimp} </usr/share/pixmaps/paint.xpm>
+[exec] (thunderbird) {thunderbird} </usr/share/pixmaps/thunderbird.png>
+[exec] (acroread) {acroread} </usr/share/pixmaps/PDF.xpm>
 

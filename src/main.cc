@@ -70,16 +70,51 @@ void Usage ()
 }
 
 
-
+/**
+ * ISO c++ forbids passing member method as a parameter, so
+ * this is a wrapper function that pointer can be passed as
+ * parameter to another function.
+ * This function is used to pass reading configuration request
+ * to a configuration object.
+ *
+ * @param cfg configutation object
+ * @param config_file configuration file path
+ * @return 0 on success, -1 on error
+ */
 int loadConfig(QLConf* cfg, const char* config_file) {
     return cfg->ReadConfigFile(config_file);
 }
 
+
+/**
+ * ISO c++ forbids passing member method as a parameter, so
+ * this is a wrapper function that pointer can be passed as
+ * parameter to another function.
+ * This function is used to pass reading config menu request
+ * to a configuration object.
+ *
+ * @param cfg configutation object
+ * @param config_file configuration file path
+ * @return 0 on success, -1 on error
+ */
 int loadMenu(QLConf* cfg, const char* config_file) {
     return cfg->ReadMenuFile(config_file);
 }
 
-int loadAlterConfig(QLConf* cfg, int (*loader) (QLConf*, const char*), const char * directory, const char * filename)   {
+
+/**
+ * This function is used to load configuration files. 
+ *
+ * @param cfg configuration object
+ * @param loader pointer to a wrapper method that will call reading on
+ *        configuration object
+ * @param directory configuration qlbar directory
+ * @param filename coniguration filename
+ *
+ * @return 0 on success, -1 on error
+ */
+int loadAlterConfig(QLConf* cfg, int (*loader) (QLConf*, const char*), 
+    const char * directory, const char * filename)   {
 
     // prepare path to default config file
     int dir_len = strlen(directory);
@@ -97,7 +132,6 @@ int loadAlterConfig(QLConf* cfg, int (*loader) (QLConf*, const char*), const cha
     }
     return 0;
 }
-
 
 
 
@@ -278,6 +312,8 @@ int main (int argc, char ** argv)
             }
         }
     }
+
+    delete [] config_file;
     // initializing logger
 
     qllogger.initialize(cfg.GetLogLevel(), cfg.GetLogFile());
@@ -310,9 +346,13 @@ int main (int argc, char ** argv)
 		}
 	}
 
+    delete [] menu_config_file;
+
 	// post-analyze config
-	if (! cfg.Validate() )
+	if (! cfg.Validate() )  {
+        qllogger.logW("QLBar is misconfigured, please fix settings. Aborting!");
 		return 0;
+    }
     
 	QLBar qlbar;
 	qlbar.SetConfig(&cfg);

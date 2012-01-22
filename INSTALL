@@ -51,11 +51,18 @@ Making and Installing the QLBar application
 
 6.   Postconfigure system
 
-     copy default configuration from package directory into the user directory
+     a) for single user configuration copy default configuration from package directory 
+        into the user directory
 
           % mkdir $HOME/.qlbar
           % cp ./conf/* $HOME/.qlbar
   
+     b) to have default global configuration on system, copy files from conf directory
+        to the /etc/qlbar
+
+          % mkdir -p /etc/qlbar
+          % cp ./conf/* /etc/qlbar
+
 7.   Edit menu configuration file, to put your own icons on toolbar
 
           % vim $HOME/.qlbar/menu

@@ -173,7 +173,7 @@ int QLBar::getBarHeight() const
 void QLBar::prepareItems()
 {
 
-    qllogger.logT("Preparing items...");
+    qllogger.logT("Preparing items... %d", items.size());
 
 	int icon_x = _icon_start_x;
 	int icon_y = _icon_start_y;

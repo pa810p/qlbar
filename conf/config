@@ -32,7 +32,7 @@ bar-time = 1
 layout = horizontal
 
 # specifies font name
-font-name = verdana
+font-name = DejaVuSans
 
 # specifies font size
 font-size = 8

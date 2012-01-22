@@ -1,0 +1,157 @@
+#!/bin/sh
+#
+# Slackware SlackBuild Script
+# ---------------------------
+#
+# Written by:   Pawel Prokop <prokop@uek.krakow.pl>
+# Script for:   qlbar
+# Description:  Toolbar gadget for X11 that contains icons and 
+#               allows to launch associated applications quickly.
+# URL:          http://prokop.uek.krakow.pl/projects/qlbar.html
+# Needs:        Imlib2
+#
+# Changelog:
+#
+# 0.2.4:        2012/01/15 Pawel Prokop <prokop@uek.krakow.pl>
+#               Initial build
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+CWD=$(pwd)
+if [ "$TMP" = "" ]; then
+  TMP=/tmp
+fi
+
+# Name of application
+APP=qlbar
+
+# Version of application
+VERSION=0.2.4
+
+# Package version
+PKG_VERSION=0.2.4
+
+ARCH=${ARCH:-i486}
+
+BUILD=${BUILD:-1_pab}
+
+PKG=$TMP/$APP
+
+SOURCE="http://prokop.uek.krakow.pl/projects/download/$APP-$VERSION.tar.bz2"
+
+
+if [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+ elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2 -fPIC"
+fi
+
+## Download source or binary code
+if [ ! -e $APP-$VERSION.tar.bz2 ]; then
+    wget $SOURCE
+fi
+
+
+rm -rf $PKG 
+mkdir -p $PKG
+rm -rf $TMP/$APP-$VERSION
+
+# Change to the TMP directory
+cd $TMP || exit 1
+
+# Extract the application source in TMP
+tar -jxvf $CWD/$APP-$VERSION.tar.bz2 || exit 1
+
+# Change to the application source directory
+cd $APP-$VERSION || exit 1
+
+# Change ownership and permissions if necessary
+chown -R root:root .
+chmod -R u+w,go+r-w,a-s .
+
+# Set configure options
+CFLAGS="$SLKCFLAGS" \
+  ./configure \
+  --prefix=/usr \
+  --sysconfdir=/etc \
+  --localstatedir=/var \
+  --build=$ARCH-slackware-linux \
+  --host=$ARCH-slackware-linux
+#  --with-log4cxx \
+
+# compile the source, but exit if anything goes wrong
+make || exit
+ 
+# Install everything into the package directory, but exit if anything goes wrong
+make install DESTDIR=$PKG || exit
+
+# Create a directory for documentation
+mkdir -p $PKG/usr/doc/$APP-$VERSION
+
+# Copy documentation to the docs directory and fix permissions
+cp -a INSTALL LICENSE CHANGELOG README TODO doc/ $PKG/usr/doc/$APP-$VERSION
+find $PKG/usr/doc/$APP-$VERSION -type f -exec chmod 644 {} \;
+
+
+cat $CWD/$APP.SlackBuild > $PKG/usr/doc/$APP-$VERSION/$APP.SlackBuild
+
+# Create the ./install directory and copy the slack-desc into it
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+
+# Add doinst.sh to package (if it exists)
+if [ -e $CWD/doinst.sh.gz ]; then
+  zcat $CWD/doinst.sh.gz > $PKG/install/doinst.sh
+fi
+
+
+# Strip some libraries and binaries
+( cd $PKG
+   find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+   find . | xargs file | grep "shared object" | grep ELF | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null
+)
+
+# Compress man pages if they exist
+if [ -d $PKG/usr/share/man ]; then
+  ( cd $PKG/usr/share/man
+  find . -type f -exec gzip -9 {} \;
+  for i in $(find . -type l) ; do ln -s $(readlink $i).gz $i.gz ; rm $i ; done
+  ) 
+fi
+
+# Create global configuration
+mkdir -p $PKG/etc/qlbar
+chmod 755 $PKG/etc/qlbar
+cp -a ./conf/* $PKG/etc/qlbar
+chmod 644 $PKG/etc/qlbar/*
+
+# Compress info pages if they exist (and remove the dir file)
+if [ -d $PKG/usr/info ]; then
+  gzip -9 $PKG/usr/info/*.info
+  rm -f $PKG/usr/info/dir
+fi
+
+
+# Build the package
+cd $PKG
+/sbin/makepkg -l y -c n $TMP/$APP-$PKG_VERSION-$ARCH-$BUILD.tgz
+
+
+
+

@@ -21,13 +21,15 @@ class QLItem : public QLWidget {
 		bool failed;
 	
 		void createDefIconPath(char *&);
+        char * createDirectory(const char * baseDir, const char * filename);
+
 
 		QLWidget * _pTip;
 
         Imlib_Image origImage;
 
 	public:
-		QLItem ( char * ip, char * ep, char * fn);
+		QLItem ( const char * ip, const char * ep, const char * fn);
 		virtual ~QLItem ();
 
 		void Init();

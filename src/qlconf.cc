@@ -344,7 +344,8 @@ int QLConf::ReadMenuFile( const char * filename )
 
 	while (cfg.good()){
 		cfg.getline(buffer,sizeof(buffer));
-		if (strlen(buffer)==0) continue;
+		if (strlen(buffer)==0) 
+            continue;
 		
 		if (regexec(&rexec, buffer, 4, match, REG_NOTEOL) == 0)
 		{
@@ -368,7 +369,7 @@ int QLConf::ReadMenuFile( const char * filename )
 				*(appdesc+i) = NULL;
 			}
 
-			if (*(appdesc)!=NULL)
+			if (appdesc!=NULL)
 				delete [] appdesc;
 			appdesc = NULL;
 		}

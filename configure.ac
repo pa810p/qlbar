@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.61)
-AC_INIT([QLBar],[0.2.2],[pablo@wizard.uek.krakow.pl])
+AC_INIT([QLBar],[0.2.4],[pablo@wizard.uek.krakow.pl])
 AM_INIT_AUTOMAKE([-Wall, -Werror foreign])
 
 AC_CONFIG_SRCDIR([config.h.in])

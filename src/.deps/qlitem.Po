@@ -27,8 +27,65 @@ qlitem.o qlitem.o: qlitem.cc /usr/include/stdio.h /usr/include/features.h \
   /usr/include/X11/X.h /usr/include/X11/Xosdefs.h \
   /usr/include/X11/keysym.h /usr/include/X11/keysymdef.h \
   /usr/include/string.h /usr/include/xlocale.h /usr/include/stdlib.h \
-  /usr/include/alloca.h qllogger.h ../config.h constants.h qlitem.h \
-  /usr/local/include/Imlib2.h qlwidget.h qltip.h common.h
+  /usr/include/alloca.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/vector \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/functexcept.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/c++config.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/os_defines.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/cpu_defines.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/exception_defines.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_algobase.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstring \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstddef \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/climits \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/include/limits.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/include/syslimits.h \
+  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+  /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstdlib \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/iosfwd \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/c++locale.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstdio \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/clocale \
+  /usr/include/locale.h /usr/include/bits/locale.h \
+  /usr/include/langinfo.h /usr/include/nl_types.h /usr/include/iconv.h \
+  /usr/include/libintl.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstdarg \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/c++io.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/gthr.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/gthr-default.h \
+  /usr/include/pthread.h /usr/include/sched.h /usr/include/bits/sched.h \
+  /usr/include/bits/setjmp.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cctype \
+  /usr/include/ctype.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stringfwd.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/postypes.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cwchar \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/ctime \
+  /usr/include/bits/wchar.h /usr/include/stdint.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_pair.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/cpp_type_traits.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/ext/type_traits.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/utility \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_relops.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_iterator_base_types.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_iterator_base_funcs.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/concept_check.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_iterator.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/debug/debug.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/allocator.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/c++allocator.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/ext/new_allocator.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/new \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/exception \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_construct.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_uninitialized.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_vector.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_bvector.h \
+  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/vector.tcc \
+  qllogger.h ../config.h constants.h qlitem.h /usr/local/include/Imlib2.h \
+  qlwidget.h qltip.h common.h
 
 /usr/include/stdio.h:
 
@@ -149,6 +206,136 @@ qlitem.o qlitem.o: qlitem.cc /usr/include/stdio.h /usr/include/features.h \
 /usr/include/stdlib.h:
 
 /usr/include/alloca.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/vector:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/functexcept.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/c++config.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/os_defines.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/cpu_defines.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/exception_defines.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_algobase.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstring:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstddef:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/climits:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/include/limits.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/include/syslimits.h:
+
+/usr/include/limits.h:
+
+/usr/include/bits/posix1_lim.h:
+
+/usr/include/bits/local_lim.h:
+
+/usr/include/linux/limits.h:
+
+/usr/include/bits/posix2_lim.h:
+
+/usr/include/bits/xopen_lim.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstdlib:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/iosfwd:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/c++locale.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstdio:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/clocale:
+
+/usr/include/locale.h:
+
+/usr/include/bits/locale.h:
+
+/usr/include/langinfo.h:
+
+/usr/include/nl_types.h:
+
+/usr/include/iconv.h:
+
+/usr/include/libintl.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstdarg:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/c++io.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/gthr.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/gthr-default.h:
+
+/usr/include/pthread.h:
+
+/usr/include/sched.h:
+
+/usr/include/bits/sched.h:
+
+/usr/include/bits/setjmp.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cctype:
+
+/usr/include/ctype.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stringfwd.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/postypes.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cwchar:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/ctime:
+
+/usr/include/bits/wchar.h:
+
+/usr/include/stdint.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_pair.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/cpp_type_traits.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/ext/type_traits.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/utility:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_relops.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_iterator_base_types.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_iterator_base_funcs.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/concept_check.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_iterator.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/debug/debug.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/allocator.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/c++allocator.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/ext/new_allocator.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/new:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/exception:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_construct.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_uninitialized.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_vector.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_bvector.h:
+
+/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/vector.tcc:
 
 qllogger.h:
 

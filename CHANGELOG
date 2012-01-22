@@ -1,8 +1,13 @@
+Sun, 22 Jan 2012, 20:31:54 CET
+version 0.2.4
 
-TODO:
+- global configuration support
+- default configuration fits to distribution
+- prepared installation packages for Slackware
 - bugfix: parameter 't' stopped working since version 0.1.4
+- support for unit tests
 
-
+-----------------------------
 Tue, 1 Nov 2011, 11:37:32 CET
 version 0.2.2
 

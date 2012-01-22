@@ -6,6 +6,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include <vector>
+
 #include "qllogger.h"
 #include "constants.h"
 #include "qlitem.h"
@@ -16,15 +18,21 @@ extern QLLogger qllogger;
  * ctor fills members with default value, reads icons
  * and creates images
  */
-QLItem::QLItem ( char * ip, char * ep, char * fn)
+QLItem::QLItem ( const char * ip, const char * ep, const char * fn)
 {
 	_width = 64;
 	_height = 64;
 
-	failed = false;
-
 	_x = 0;
 	_y = 0;
+
+    im = NULL;
+    _pName = NULL;
+    _pIconPath = NULL;
+    _pExecPath = NULL;
+
+    failed = false;
+
 	int iip = strlen (ip);
 	_pIconPath = new char [ iip + 1 ];
 	strncpy(_pIconPath, ip, iip);
@@ -43,7 +51,7 @@ QLItem::QLItem ( char * ip, char * ep, char * fn)
     //TODO:
     // move initialization to further stage 
     // or display creation
-	Init();
+	Init(); 
 	_pTip = NULL;
 
     qllogger.logT("QLItem creation: [%x]", this);
@@ -59,7 +67,7 @@ void QLItem::createDefIconPath(char * &dst)
 	const char * home = getenv("HOME");
 	int home_len = strlen(home);
   	int qlbdir_len = strlen(QLB_DEF_DIR);
-	
+
 	int len = strlen ( QLB_DEF_ICON );
 	dst = new char [ home_len + qlbdir_len + len + 2 ];
 	strncpy (dst, home, home_len + 1);
@@ -68,6 +76,20 @@ void QLItem::createDefIconPath(char * &dst)
 	strncat (dst, QLB_DEF_ICON, len+1);
 	
 }
+
+char * QLItem::createDirectory(const char * baseDir, const char * filename) {
+
+    int dirlen = strlen(baseDir);
+    int filelen = strlen(filename);
+
+    char * dst = new char [ dirlen + 1 + filelen + 1 ];
+    strncpy(dst, baseDir, dirlen+1);
+    strncat(dst, "/", 1);
+    strncat(dst, filename, filelen+1);
+    
+    return dst;
+}
+
 
 /**
  * Function initializes and validates item's data
@@ -84,30 +106,36 @@ void QLItem::Init()
 		createDefIconPath(_pIconPath);
 		}
 
-
 	origImage = imlib_load_image(_pIconPath);
 	if (origImage == NULL) {
 		qllogger.logW("Could not load image: %s\nUsing default\n", _pIconPath);
-		char * dst = NULL;
-		createDefIconPath(dst);
-		origImage = imlib_load_image(dst);
-		if (origImage == NULL) {
-			qllogger.logW("Could load default icon file: %s\n", dst);
-			failed = true;
-		}
+    
+        vector<char *> directories;
+        directories.push_back(createDirectory(QLB_DEF_ETC_QLBAR, QLB_DEF_ICON));
+        directories.push_back(createDirectory(QLB_DEF_USR_LOCAL_ETC_QLBAR, QLB_DEF_ICON));
 
-		if (dst != NULL){
-			delete [] dst;
-			dst = NULL;
+        vector<char *>::iterator it = directories.begin();
+        for (;it!=directories.end();it++) {
+		    origImage = imlib_load_image(*it);
+    		if (origImage == NULL) {
+	    		qllogger.logW("Could load default icon file: %s\n", *it);
+                failed = true;
+		    }
+            else {
+                qllogger.logI("Loaded default icon file: %s\n", *it);
+                failed = false;
+                break;
+            }
+
 		}
 			
+        while(!directories.empty()) {
+            delete directories.back(), directories.pop_back();
+        }
 	}
 
-    //TODO:
-    //this should not be done before CreateUI
-    //or at least _width/_height variables initialization
-	if (failed == true) // failed
-		return;
+
+
 }
 
 /**
@@ -115,6 +143,8 @@ void QLItem::Init()
  */
 QLItem::~QLItem ()
 {
+    qllogger.logT("QLItem destruction: [%x]", this);
+
 	if (_pIconPath != NULL) {
 		delete [] _pIconPath;
 		_pIconPath = NULL;
@@ -130,10 +160,10 @@ QLItem::~QLItem ()
 		_pName = NULL;
 	}
 
-	if (failed == false){
-		imlib_context_set_image(im);
-		imlib_free_image();
-	}
+    if (NULL != im) {
+        imlib_context_set_image(im);
+        imlib_free_image();
+    }
 
     if (_pTip != NULL){
         delete _pTip;
