@@ -27,7 +27,7 @@ CXXFLAGS += -g -Wall -Wextra
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
-TESTS = testQLItem
+TESTS = testQLItem testQLConf
 
 # All Google Test headers.  Usually you shouldn't change this
 # definition.
@@ -78,15 +78,25 @@ qlwidget.o: $(USER_DIR)/qlwidget.cc $(USER_DIR)/qlwidget.h $(GTEST_HEADERS)
 qllogger.o: $(USER_DIR)/qllogger.cc $(USER_DIR)/qllogger.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/qllogger.cc
 
+qlconf.o: $(USER_DIR)/qlconf.cc $(USER_DIR)/qlconf.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/qlconf.cc
+
 qltip.o: $(USER_DIR)/qltip.cc $(USER_DIR)/qltip.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/qltip.cc
 
 common.o: $(USER_DIR)/common.cc $(USER_DIR)/common.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/common.cc
 
-testQLItem.o : testQLItem.cc \
-                     $(USER_DIR)/qlitem.h $(GTEST_HEADERS)
+testQLItem.o : testQLItem.cc $(USER_DIR)/qlitem.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c testQLItem.cc
+
+testQLConf.o : testQLConf.cc $(USER_DIR)/qlconf.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c testQLConf.cc
+		
 
 testQLItem : qlitem.o testQLItem.o gtest_main.a qlwidget.o qllogger.o qltip.o common.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread -llog4cxx -lImlib2 -lXext $^ -o $@
+
+testQLConf : qlconf.o testQLConf.o gtest_main.a qlwidget.o qllogger.o qltip.o common.o qlitem.o
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread -llog4cxx -lImlib2 -lXext $^ -o $@
+

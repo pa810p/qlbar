@@ -95,10 +95,9 @@ class QLConf {
         
         QLLogger::Level parseLogLevel(const char *);
 
-        bool parseTrueFalse(const char* );
-
-
 	protected:
+
+        bool parseTrueFalse(const char* );
 		int comp (const char *, const char *) const;
 //		void Set(int *dst, const int &src, bool *state, const bool ov);
 //		void Set(long *dst, const long &src, bool *state, const bool ov);
