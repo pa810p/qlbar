@@ -1,3 +1,10 @@
+Sat, 21 Apr 2018, 15:16:54 CET
+version 0.2.5
+
+- minor bugfix: qlbar has started his applications from a directory
+  that has it started from.
+
+-----------------------------
 Sun, 22 Jan 2012, 20:31:54 CET
 version 0.2.4
 

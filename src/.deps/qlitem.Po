@@ -1,91 +1,68 @@
-qlitem.o qlitem.o: qlitem.cc /usr/include/stdio.h /usr/include/features.h \
-  /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
-  /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/include/stddef.h \
-  /usr/include/bits/types.h /usr/include/bits/typesizes.h \
-  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/include/stdarg.h \
-  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
-  /usr/include/unistd.h /usr/include/bits/posix_opt.h \
-  /usr/include/bits/environments.h /usr/include/bits/confname.h \
-  /usr/include/getopt.h /usr/include/sys/wait.h /usr/include/signal.h \
-  /usr/include/bits/sigset.h /usr/include/bits/signum.h \
-  /usr/include/time.h /usr/include/bits/siginfo.h \
-  /usr/include/bits/sigaction.h /usr/include/bits/sigcontext.h \
-  /usr/include/asm/sigcontext.h /usr/include/linux/compiler.h \
-  /usr/include/bits/sigstack.h /usr/include/sys/ucontext.h \
-  /usr/include/bits/pthreadtypes.h /usr/include/bits/sigthread.h \
-  /usr/include/sys/resource.h /usr/include/bits/resource.h \
-  /usr/include/bits/time.h /usr/include/bits/waitflags.h \
-  /usr/include/bits/waitstatus.h /usr/include/endian.h \
-  /usr/include/bits/endian.h /usr/include/bits/byteswap.h \
-  /usr/include/sys/stat.h /usr/include/bits/stat.h \
-  /usr/include/X11/extensions/shape.h /usr/include/X11/Xfuncproto.h \
-  /usr/include/X11/Xutil.h /usr/include/X11/Xlib.h \
-  /usr/include/sys/types.h /usr/include/sys/select.h \
-  /usr/include/bits/select.h /usr/include/sys/sysmacros.h \
-  /usr/include/X11/X.h /usr/include/X11/Xosdefs.h \
-  /usr/include/X11/keysym.h /usr/include/X11/keysymdef.h \
-  /usr/include/string.h /usr/include/xlocale.h /usr/include/stdlib.h \
-  /usr/include/alloca.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/vector \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/functexcept.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/c++config.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/os_defines.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/cpu_defines.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/exception_defines.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_algobase.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstring \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstddef \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/climits \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/include/limits.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/include/syslimits.h \
-  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
-  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
-  /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstdlib \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/iosfwd \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/c++locale.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstdio \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/clocale \
-  /usr/include/locale.h /usr/include/bits/locale.h \
-  /usr/include/langinfo.h /usr/include/nl_types.h /usr/include/iconv.h \
-  /usr/include/libintl.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstdarg \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/c++io.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/gthr.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/gthr-default.h \
-  /usr/include/pthread.h /usr/include/sched.h /usr/include/bits/sched.h \
-  /usr/include/bits/setjmp.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cctype \
-  /usr/include/ctype.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stringfwd.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/postypes.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cwchar \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/ctime \
-  /usr/include/bits/wchar.h /usr/include/stdint.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_pair.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/cpp_type_traits.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/ext/type_traits.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/utility \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_relops.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_iterator_base_types.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_iterator_base_funcs.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/concept_check.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_iterator.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/debug/debug.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/allocator.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/c++allocator.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/ext/new_allocator.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/new \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/exception \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_construct.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_uninitialized.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_vector.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_bvector.h \
-  /usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/vector.tcc \
-  qllogger.h ../config.h constants.h qlitem.h /usr/local/include/Imlib2.h \
-  qlwidget.h qltip.h common.h
+qlitem.o: qlitem.cc /usr/include/stdc-predef.h /usr/include/stdio.h \
+ /usr/include/features.h /usr/include/sys/cdefs.h \
+ /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+ /usr/include/gnu/stubs-64.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/5.3.0/include/stddef.h \
+ /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+ /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+ /usr/lib64/gcc/x86_64-slackware-linux/5.3.0/include/stdarg.h \
+ /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+ /usr/include/bits/stdio.h /usr/include/unistd.h \
+ /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
+ /usr/include/bits/confname.h /usr/include/getopt.h \
+ /usr/include/sys/wait.h /usr/include/signal.h /usr/include/bits/sigset.h \
+ /usr/include/bits/signum.h /usr/include/time.h \
+ /usr/include/bits/siginfo.h /usr/include/bits/sigaction.h \
+ /usr/include/bits/sigcontext.h /usr/include/bits/sigstack.h \
+ /usr/include/sys/ucontext.h /usr/include/bits/pthreadtypes.h \
+ /usr/include/bits/sigthread.h /usr/include/bits/waitflags.h \
+ /usr/include/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/bits/endian.h /usr/include/bits/byteswap.h \
+ /usr/include/bits/byteswap-16.h /usr/include/sys/stat.h \
+ /usr/include/bits/stat.h /usr/include/X11/extensions/shape.h \
+ /usr/include/X11/Xfuncproto.h /usr/include/X11/extensions/shapeconst.h \
+ /usr/include/X11/Xutil.h /usr/include/X11/Xlib.h \
+ /usr/include/sys/types.h /usr/include/sys/select.h \
+ /usr/include/bits/select.h /usr/include/bits/time.h \
+ /usr/include/sys/sysmacros.h /usr/include/X11/X.h \
+ /usr/include/X11/Xosdefs.h /usr/include/X11/keysym.h \
+ /usr/include/X11/keysymdef.h /usr/include/string.h \
+ /usr/include/xlocale.h /usr/include/stdlib.h /usr/include/alloca.h \
+ /usr/include/bits/stdlib-bsearch.h /usr/include/bits/stdlib-float.h \
+ /usr/include/c++/5.3.0/vector /usr/include/c++/5.3.0/bits/stl_algobase.h \
+ /usr/include/c++/5.3.0/x86_64-slackware-linux/bits/c++config.h \
+ /usr/include/c++/5.3.0/x86_64-slackware-linux/bits/os_defines.h \
+ /usr/include/c++/5.3.0/x86_64-slackware-linux/bits/cpu_defines.h \
+ /usr/include/c++/5.3.0/bits/functexcept.h \
+ /usr/include/c++/5.3.0/bits/exception_defines.h \
+ /usr/include/c++/5.3.0/bits/cpp_type_traits.h \
+ /usr/include/c++/5.3.0/ext/type_traits.h \
+ /usr/include/c++/5.3.0/ext/numeric_traits.h \
+ /usr/include/c++/5.3.0/bits/stl_pair.h \
+ /usr/include/c++/5.3.0/bits/move.h \
+ /usr/include/c++/5.3.0/bits/concept_check.h \
+ /usr/include/c++/5.3.0/bits/stl_iterator_base_types.h \
+ /usr/include/c++/5.3.0/bits/stl_iterator_base_funcs.h \
+ /usr/include/c++/5.3.0/debug/debug.h \
+ /usr/include/c++/5.3.0/bits/stl_iterator.h \
+ /usr/include/c++/5.3.0/bits/ptr_traits.h \
+ /usr/include/c++/5.3.0/bits/predefined_ops.h \
+ /usr/include/c++/5.3.0/bits/allocator.h \
+ /usr/include/c++/5.3.0/x86_64-slackware-linux/bits/c++allocator.h \
+ /usr/include/c++/5.3.0/ext/new_allocator.h /usr/include/c++/5.3.0/new \
+ /usr/include/c++/5.3.0/exception \
+ /usr/include/c++/5.3.0/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/5.3.0/bits/memoryfwd.h \
+ /usr/include/c++/5.3.0/bits/stl_construct.h \
+ /usr/include/c++/5.3.0/ext/alloc_traits.h \
+ /usr/include/c++/5.3.0/bits/stl_uninitialized.h \
+ /usr/include/c++/5.3.0/bits/stl_vector.h \
+ /usr/include/c++/5.3.0/bits/stl_bvector.h \
+ /usr/include/c++/5.3.0/bits/range_access.h \
+ /usr/include/c++/5.3.0/bits/vector.tcc qllogger.h ../config.h \
+ constants.h qlitem.h /usr/include/Imlib2.h qlwidget.h qltip.h common.h
+
+/usr/include/stdc-predef.h:
 
 /usr/include/stdio.h:
 
@@ -97,9 +74,9 @@ qlitem.o qlitem.o: qlitem.cc /usr/include/stdio.h /usr/include/features.h \
 
 /usr/include/gnu/stubs.h:
 
-/usr/include/gnu/stubs-32.h:
+/usr/include/gnu/stubs-64.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/include/stddef.h:
+/usr/lib64/gcc/x86_64-slackware-linux/5.3.0/include/stddef.h:
 
 /usr/include/bits/types.h:
 
@@ -111,11 +88,13 @@ qlitem.o qlitem.o: qlitem.cc /usr/include/stdio.h /usr/include/features.h \
 
 /usr/include/wchar.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/include/stdarg.h:
+/usr/lib64/gcc/x86_64-slackware-linux/5.3.0/include/stdarg.h:
 
 /usr/include/bits/stdio_lim.h:
 
 /usr/include/bits/sys_errlist.h:
+
+/usr/include/bits/stdio.h:
 
 /usr/include/unistd.h:
 
@@ -143,10 +122,6 @@ qlitem.o qlitem.o: qlitem.cc /usr/include/stdio.h /usr/include/features.h \
 
 /usr/include/bits/sigcontext.h:
 
-/usr/include/asm/sigcontext.h:
-
-/usr/include/linux/compiler.h:
-
 /usr/include/bits/sigstack.h:
 
 /usr/include/sys/ucontext.h:
@@ -154,12 +129,6 @@ qlitem.o qlitem.o: qlitem.cc /usr/include/stdio.h /usr/include/features.h \
 /usr/include/bits/pthreadtypes.h:
 
 /usr/include/bits/sigthread.h:
-
-/usr/include/sys/resource.h:
-
-/usr/include/bits/resource.h:
-
-/usr/include/bits/time.h:
 
 /usr/include/bits/waitflags.h:
 
@@ -171,6 +140,8 @@ qlitem.o qlitem.o: qlitem.cc /usr/include/stdio.h /usr/include/features.h \
 
 /usr/include/bits/byteswap.h:
 
+/usr/include/bits/byteswap-16.h:
+
 /usr/include/sys/stat.h:
 
 /usr/include/bits/stat.h:
@@ -178,6 +149,8 @@ qlitem.o qlitem.o: qlitem.cc /usr/include/stdio.h /usr/include/features.h \
 /usr/include/X11/extensions/shape.h:
 
 /usr/include/X11/Xfuncproto.h:
+
+/usr/include/X11/extensions/shapeconst.h:
 
 /usr/include/X11/Xutil.h:
 
@@ -188,6 +161,8 @@ qlitem.o qlitem.o: qlitem.cc /usr/include/stdio.h /usr/include/features.h \
 /usr/include/sys/select.h:
 
 /usr/include/bits/select.h:
+
+/usr/include/bits/time.h:
 
 /usr/include/sys/sysmacros.h:
 
@@ -207,135 +182,75 @@ qlitem.o qlitem.o: qlitem.cc /usr/include/stdio.h /usr/include/features.h \
 
 /usr/include/alloca.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/vector:
+/usr/include/bits/stdlib-bsearch.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/functexcept.h:
+/usr/include/bits/stdlib-float.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/c++config.h:
+/usr/include/c++/5.3.0/vector:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/os_defines.h:
+/usr/include/c++/5.3.0/bits/stl_algobase.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/cpu_defines.h:
+/usr/include/c++/5.3.0/x86_64-slackware-linux/bits/c++config.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/exception_defines.h:
+/usr/include/c++/5.3.0/x86_64-slackware-linux/bits/os_defines.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_algobase.h:
+/usr/include/c++/5.3.0/x86_64-slackware-linux/bits/cpu_defines.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstring:
+/usr/include/c++/5.3.0/bits/functexcept.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstddef:
+/usr/include/c++/5.3.0/bits/exception_defines.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/climits:
+/usr/include/c++/5.3.0/bits/cpp_type_traits.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/include/limits.h:
+/usr/include/c++/5.3.0/ext/type_traits.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/include/syslimits.h:
+/usr/include/c++/5.3.0/ext/numeric_traits.h:
 
-/usr/include/limits.h:
+/usr/include/c++/5.3.0/bits/stl_pair.h:
 
-/usr/include/bits/posix1_lim.h:
+/usr/include/c++/5.3.0/bits/move.h:
 
-/usr/include/bits/local_lim.h:
+/usr/include/c++/5.3.0/bits/concept_check.h:
 
-/usr/include/linux/limits.h:
+/usr/include/c++/5.3.0/bits/stl_iterator_base_types.h:
 
-/usr/include/bits/posix2_lim.h:
+/usr/include/c++/5.3.0/bits/stl_iterator_base_funcs.h:
 
-/usr/include/bits/xopen_lim.h:
+/usr/include/c++/5.3.0/debug/debug.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstdlib:
+/usr/include/c++/5.3.0/bits/stl_iterator.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/iosfwd:
+/usr/include/c++/5.3.0/bits/ptr_traits.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/c++locale.h:
+/usr/include/c++/5.3.0/bits/predefined_ops.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstdio:
+/usr/include/c++/5.3.0/bits/allocator.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/clocale:
+/usr/include/c++/5.3.0/x86_64-slackware-linux/bits/c++allocator.h:
 
-/usr/include/locale.h:
+/usr/include/c++/5.3.0/ext/new_allocator.h:
 
-/usr/include/bits/locale.h:
+/usr/include/c++/5.3.0/new:
 
-/usr/include/langinfo.h:
+/usr/include/c++/5.3.0/exception:
 
-/usr/include/nl_types.h:
+/usr/include/c++/5.3.0/bits/atomic_lockfree_defines.h:
 
-/usr/include/iconv.h:
+/usr/include/c++/5.3.0/bits/memoryfwd.h:
 
-/usr/include/libintl.h:
+/usr/include/c++/5.3.0/bits/stl_construct.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cstdarg:
+/usr/include/c++/5.3.0/ext/alloc_traits.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/c++io.h:
+/usr/include/c++/5.3.0/bits/stl_uninitialized.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/gthr.h:
+/usr/include/c++/5.3.0/bits/stl_vector.h:
 
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/gthr-default.h:
+/usr/include/c++/5.3.0/bits/stl_bvector.h:
 
-/usr/include/pthread.h:
+/usr/include/c++/5.3.0/bits/range_access.h:
 
-/usr/include/sched.h:
-
-/usr/include/bits/sched.h:
-
-/usr/include/bits/setjmp.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cctype:
-
-/usr/include/ctype.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stringfwd.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/postypes.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/cwchar:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/ctime:
-
-/usr/include/bits/wchar.h:
-
-/usr/include/stdint.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_pair.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/cpp_type_traits.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/ext/type_traits.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/utility:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_relops.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_iterator_base_types.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_iterator_base_funcs.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/concept_check.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_iterator.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/debug/debug.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/allocator.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/i486-slackware-linux/bits/c++allocator.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/ext/new_allocator.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/new:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/exception:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_construct.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_uninitialized.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_vector.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/stl_bvector.h:
-
-/usr/lib/gcc/i486-slackware-linux/4.2.4/../../../../include/c++/4.2.4/bits/vector.tcc:
+/usr/include/c++/5.3.0/bits/vector.tcc:
 
 qllogger.h:
 
@@ -345,7 +260,7 @@ constants.h:
 
 qlitem.h:
 
-/usr/local/include/Imlib2.h:
+/usr/include/Imlib2.h:
 
 qlwidget.h:
 

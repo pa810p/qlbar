@@ -12,6 +12,10 @@
 #
 # Changelog:
 #
+# 0.2.5:        2012/01/15 Pawel Prokop <prokop@uek.krakow.pl>
+#               minor bugfix: qlbar has started his applications from a directory
+#               that has it started from.
+#
 # 0.2.4:        2012/01/15 Pawel Prokop <prokop@uek.krakow.pl>
 #               Initial build
 #
@@ -41,10 +45,10 @@ fi
 APP=qlbar
 
 # Version of application
-VERSION=0.2.4
+VERSION=0.2.5
 
 # Package version
-PKG_VERSION=0.2.4
+PKG_VERSION=0.2.5
 
 ARCH=${ARCH:-i486}
 

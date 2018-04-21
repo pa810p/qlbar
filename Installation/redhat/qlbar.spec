@@ -1,7 +1,7 @@
 Summary: Toolbar gadget for X11
 Name: qlbar
-Version: 0.2.3
-Release: 20120116
+Version: 0.2.5
+Release: 20180421
 License: GPL
 Group: Applications/Productivity
 URL: http://prokop.uek.krakow.pl/projects/qlbar

@@ -299,6 +299,7 @@ void QLItem::Execute()
       switch (fork()) 
 		{
       	case 0:
+                chdir(getenv("HOME"));
         		execlp("/bin/sh", "sh", "-c", _pExecPath, NULL);
       	default:
          	_exit(0);
