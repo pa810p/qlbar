@@ -1,12 +1,12 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.61)
-AC_INIT([QLBar],[0.2.4],[pablo@wizard.uek.krakow.pl])
+AC_PREREQ([2.71])
+AC_INIT([QLBar],[0.2.6],[pa810p@gmail.com])
 AM_INIT_AUTOMAKE([-Wall, -Werror foreign])
 
 AC_CONFIG_SRCDIR([config.h.in])
-AC_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
 AC_PROG_CXX
@@ -16,12 +16,11 @@ AC_PROG_CC
 AC_CHECK_LIB([Imlib2], [imlib_load_image], , echo -e "Imlib2 is required by qlbar"; exit)
 AC_CHECK_LIB([Xext], [XShapeCombineMask], , echo "Xext is required by qlbar"; exit)
 
-#Pthread is no needed any more
-#AC_CHECK_LIB([pthread], [pthread_create], , echo "pthread is required by qlbar"; exit)
-
 # Checks for header files.
 AC_PATH_X
-AC_HEADER_STDC
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
+
 AC_HEADER_SYS_WAIT
 AC_CHECK_HEADERS([stdlib.h unistd.h])
 

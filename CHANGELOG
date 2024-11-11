@@ -1,10 +1,17 @@
+-------------------------------
+Mon Nov 11 09:46:43 AM CET 2024
+version 0.2.6
+
+- fixed lingage order error
+
+------------------------------
 Sat, 21 Apr 2018, 15:16:54 CET
 version 0.2.5
 
 - minor bugfix: qlbar has started his applications from a directory
   that has it started from.
 
------------------------------
+------------------------------
 Sun, 22 Jan 2012, 20:31:54 CET
 version 0.2.4
 

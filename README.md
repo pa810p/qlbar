@@ -17,6 +17,11 @@ You need to have installed libraries listed below:
 - log4cxx-0.10.0 (:hand: optional)
 
 ### Making and Installing the QLBar application
+#### 0. Preconfigure scripts
+Configure configuration scripts with autoreconf
+````shell
+$ autoreconf -fvi
+````
 #### 1. Run **configure** script to see available configure options:
 ````shell
 $ ./configure --help
